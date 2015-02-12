@@ -1,10 +1,10 @@
-<h1>Listing depts</h1>
+<h1>組織マスタ</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Code</th>
-      <th>Name</th>
+      <th width="100" >組織コード</th>
+      <th width="400" >組織名称</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,5 +23,13 @@
 </table>
 
 <br>
+<%= link_to '新規登録', new_dept_path %>
+<br>
+<hr>
+<%= form_tag 'depts/upload', :multipart => true do %>
+  組織一括登録:（*.csv）
+  <%= file_field_tag 'upload_file', :accept => 'text/comma-separated-values' %>
+  <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？" %>
+<% end %>
 
-<%= link_to 'New Dept', new_dept_path %>
+

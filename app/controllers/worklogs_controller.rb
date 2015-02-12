@@ -4,7 +4,7 @@ class WorklogsController < ApplicationController
   # GET /worklogs
   # GET /worklogs.json
   def index
-    @worklogs = Worklog.all
+    @worklogs = Worklog.order(:emp_id,:workday)
   end
 
   # GET /worklogs/1
@@ -15,6 +15,7 @@ class WorklogsController < ApplicationController
   # GET /worklogs/new
   def new
     @worklog = Worklog.new
+    @holiday_list = ["a","b","c"]
   end
 
   # GET /worklogs/1/edit
@@ -69,6 +70,6 @@ class WorklogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def worklog_params
-      params.require(:worklog).permit(:dept_id, :emp_id, :workday, :holiday, :worktype, :rc_start, :wk_start, :wk_end, :rc_end, :rest, :reason, :comment, :check)
+      params.require(:worklog).permit(:dept_id, :emp_id, :workday, :holiday, :worktype, :rc_start, :wk_start, :wk_end, :rc_end, :rest, :reason, :comment, :check, :holiday_id, :worktype_id)
     end
 end

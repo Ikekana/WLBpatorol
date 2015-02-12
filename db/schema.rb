@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212025557) do
+ActiveRecord::Schema.define(version: 20150212051539) do
 
   create_table "depts", force: true do |t|
     t.string   "code"
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 20150212025557) do
 
   create_table "emps", force: true do |t|
     t.string   "code"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "holidays", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -61,9 +67,17 @@ ActiveRecord::Schema.define(version: 20150212025557) do
     t.string   "check"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "holiday_id"
+    t.integer  "worktype_id"
   end
 
   add_index "worklogs", ["dept_id"], name: "index_worklogs_on_dept_id"
   add_index "worklogs", ["emp_id"], name: "index_worklogs_on_emp_id"
+
+  create_table "worktypes", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
