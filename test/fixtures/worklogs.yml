@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dept_id: 
+  emp_id: 
+  workday: 2015-02-12
+  holiday: MyString
+  worktype: MyString
+  rc_start: 2015-02-12 02:30:30
+  wk_start: 2015-02-12 02:30:30
+  wk_end: 2015-02-12 02:30:30
+  rc_end: 2015-02-12 02:30:30
+  rest: 1
+  reason: MyString
+  comment: MyString
+  check: MyString
+
+two:
+  dept_id: 
+  emp_id: 
+  workday: 2015-02-12
+  holiday: MyString
+  worktype: MyString
+  rc_start: 2015-02-12 02:30:30
+  wk_start: 2015-02-12 02:30:30
+  wk_end: 2015-02-12 02:30:30
+  rc_end: 2015-02-12 02:30:30
+  rest: 1
+  reason: MyString
+  comment: MyString
+  check: MyString

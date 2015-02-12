@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dept:</strong>
+  <%= @worklog.dept %>
+</p>
+
+<p>
+  <strong>Emp:</strong>
+  <%= @worklog.emp %>
+</p>
+
+<p>
+  <strong>Workday:</strong>
+  <%= @worklog.workday %>
+</p>
+
+<p>
+  <strong>Holiday:</strong>
+  <%= @worklog.holiday %>
+</p>
+
+<p>
+  <strong>Worktype:</strong>
+  <%= @worklog.worktype %>
+</p>
+
+<p>
+  <strong>Rc start:</strong>
+  <%= @worklog.rc_start %>
+</p>
+
+<p>
+  <strong>Wk start:</strong>
+  <%= @worklog.wk_start %>
+</p>
+
+<p>
+  <strong>Wk end:</strong>
+  <%= @worklog.wk_end %>
+</p>
+
+<p>
+  <strong>Rc end:</strong>
+  <%= @worklog.rc_end %>
+</p>
+
+<p>
+  <strong>Rest:</strong>
+  <%= @worklog.rest %>
+</p>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @worklog.reason %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @worklog.comment %>
+</p>
+
+<p>
+  <strong>Check:</strong>
+  <%= @worklog.check %>
+</p>
+
+<%= link_to 'Edit', edit_worklog_path(@worklog) %> |
+<%= link_to 'Back', worklogs_path %>

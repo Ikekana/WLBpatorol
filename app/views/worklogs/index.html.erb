@@ -1,0 +1,49 @@
+<h1>Listing worklogs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dept</th>
+      <th>Emp</th>
+      <th>Workday</th>
+      <th>Holiday</th>
+      <th>Worktype</th>
+      <th>Rc start</th>
+      <th>Wk start</th>
+      <th>Wk end</th>
+      <th>Rc end</th>
+      <th>Rest</th>
+      <th>Reason</th>
+      <th>Comment</th>
+      <th>Check</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @worklogs.each do |worklog| %>
+      <tr>
+        <td><%= worklog.dept %></td>
+        <td><%= worklog.emp %></td>
+        <td><%= worklog.workday %></td>
+        <td><%= worklog.holiday %></td>
+        <td><%= worklog.worktype %></td>
+        <td><%= worklog.rc_start %></td>
+        <td><%= worklog.wk_start %></td>
+        <td><%= worklog.wk_end %></td>
+        <td><%= worklog.rc_end %></td>
+        <td><%= worklog.rest %></td>
+        <td><%= worklog.reason %></td>
+        <td><%= worklog.comment %></td>
+        <td><%= worklog.check %></td>
+        <td><%= link_to 'Show', worklog %></td>
+        <td><%= link_to 'Edit', edit_worklog_path(worklog) %></td>
+        <td><%= link_to 'Destroy', worklog, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Worklog', new_worklog_path %>

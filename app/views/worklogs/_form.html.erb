@@ -1,0 +1,69 @@
+<%= form_for(@worklog) do |f| %>
+  <% if @worklog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@worklog.errors.count, "error") %> prohibited this worklog from being saved:</h2>
+
+      <ul>
+      <% @worklog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dept_id %><br>
+    <%= f.text_field :dept_id %>
+  </div>
+  <div class="field">
+    <%= f.label :emp_id %><br>
+    <%= f.text_field :emp_id %>
+  </div>
+  <div class="field">
+    <%= f.label :workday %><br>
+    <%= f.date_select :workday %>
+  </div>
+  <div class="field">
+    <%= f.label :holiday %><br>
+    <%= f.text_field :holiday %>
+  </div>
+  <div class="field">
+    <%= f.label :worktype %><br>
+    <%= f.text_field :worktype %>
+  </div>
+  <div class="field">
+    <%= f.label :rc_start %><br>
+    <%= f.time_select :rc_start %>
+  </div>
+  <div class="field">
+    <%= f.label :wk_start %><br>
+    <%= f.time_select :wk_start %>
+  </div>
+  <div class="field">
+    <%= f.label :wk_end %><br>
+    <%= f.time_select :wk_end %>
+  </div>
+  <div class="field">
+    <%= f.label :rc_end %><br>
+    <%= f.time_select :rc_end %>
+  </div>
+  <div class="field">
+    <%= f.label :rest %><br>
+    <%= f.number_field :rest %>
+  </div>
+  <div class="field">
+    <%= f.label :reason %><br>
+    <%= f.text_field :reason %>
+  </div>
+  <div class="field">
+    <%= f.label :comment %><br>
+    <%= f.text_field :comment %>
+  </div>
+  <div class="field">
+    <%= f.label :check %><br>
+    <%= f.text_field :check %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
