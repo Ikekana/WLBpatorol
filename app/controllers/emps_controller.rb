@@ -61,6 +61,19 @@ class EmpsController < ApplicationController
     end
   end
 
+  # CSV Upload /upload
+  def upload
+    require 'csv'
+	  if !params[:upload_file].blank?
+	    reader = params[:upload_file].read
+	    CSV.parse(reader) do |row|
+	      d = Emp.from_csv(row)
+	      d.save()
+	    end
+	  end
+	  redirect_to :action => :index
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_emp

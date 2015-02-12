@@ -1,0 +1,102 @@
+ja:
+  activerecord:
+    attributes:
+      company:
+        name: 会社名
+        category: 分類
+        postcode: 郵便番号
+        address: 住所
+        phone_no: 電話番号
+        destination_name: 宛先
+      engine:
+        engine_model_name: 'エンジン型式'
+        sales_model_name: '販売型式'
+        serialno: 'エンジンNo.'
+        company: '管轄'
+        suspended: サスペンド
+        status: 'ステータス'
+      repair:
+        issue_no: 発行No
+        issue_date: 発行日
+        time_of_running: 運転時間
+        day_of_test: 試運転日
+        years_of_use: 使用年数
+        returning_comment: 返却コメント
+        arrive_comment: 到着コメント
+        order_no: 依頼No
+        order_date: 整備依頼日
+        construction_no: 工事No(仮)
+        desirable_finish_date: 希望完成日
+        arrive_date: 受領日
+        start_date: 整備開始日
+        before_comment: コメント(整備前)
+        finish_date: 整備完了日
+        after_comment: コメント(完了)
+        estimated_finish_date: 予定完成日
+        finish_date: 完了日
+        shipped_date: 出荷日
+        returning_date: 返却日
+        change_comment: コメント(交換理由)
+        requestpaper: 整備依頼書
+        checkpaper: 組立チェックシート
+      user:
+        userid: ログインＩＤ
+        code: 社員コード
+        name: 氏名
+        password: パスワード
+        email: Ｅメール
+        remember_me: ログイン状態を維持する。
+        dept: 所属部門
+        password_confirmation: パスワード（確認）
+        current_password: 現在のパスワード
+        company: 会社
+      engineorder:
+        issue_no: 発行No
+        inquiry_date: 引合発生日
+        order_date: 受注日
+        registered_user_id: ログイン担当者
+        updated_user_id: 更新担当者
+        branch_id: 拠点
+        salesman_id: 担当者
+        install_place_id: 設置先
+        orderer: 元受
+        machine_no: 機体No
+        time_of_running: エンジン運転時間
+        day_of_test: 試運転日
+        change_comment: コメント(交換理由)
+        sending_place_id: 送付先
+        sending_comment: 送付コメント
+        desirable_delivery_date: 希望納期
+        businessstatus_id: ステータス
+        new_engine_id: 新規エンジン
+        new_engine: 新規エンジン
+        old_engine_id: 返却エンジン
+        old_engine: 返却エンジン
+        invoice_no: 送り状No
+        returning_place_id: 返却先
+        returning_comment: 返却コメント
+        shipped_date: 出荷日
+        shipped_comment: 出荷コメント
+        title: 物件名
+        returning_date: 返却日 
+        returning_comment: 返却コメント
+        invoice_no_new: 送り状No（新エンジン）
+        invoice_no_old: 送り状No（旧エンジン） 
+        allocated_date: 引当日
+        new_engine_model_name: 新規エンジン型式
+        new_serialno: '新規エンジンS/#'
+        old_engine_model_name: 返却エンジン型式
+        old_serialno: '返却エンジンS/#'
+      place:
+        name: 会社名
+        category: 分類
+        postcode: 郵便番号
+        address: 住所
+        phone_no: 電話番号
+        destination_name: 宛先
+      engineorder/old_engine:
+        engine_model_name: 返却エンジンのエンジン型式
+        serialno: 返却エンジンのエンジンNo.
+      engineorder/new_engine:
+        engine_model_name: 新規エンジンのエンジン型式
+        serialno: 新規エンジンのエンジンNo.

@@ -1,12 +1,23 @@
 Rails.application.routes.draw do
+  resources :worktypes
+
+  resources :holidays
+
   devise_for :users
+  
   root to: "worklogs#index"
+  
   resources :worklogs
 
   resources :emps
 
   resources :depts
 
+  post 'depts/upload' => 'depts#upload'
+
+  post 'emps/upload' => 'emps#upload'
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
