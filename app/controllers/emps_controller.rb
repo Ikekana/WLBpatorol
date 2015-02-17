@@ -10,6 +10,12 @@ class EmpsController < ApplicationController
   # GET /emps/1
   # GET /emps/1.json
   def show
+    @worklogs = Worklog.where(:emp_id => @emp.id).order(:workday)
+    anArray = Array.new()
+    @worklogs.each do | worklog |
+      anArray.append([worklog.workday, worklog.work_minutes_in_day])
+    end
+    gon.graph_data = anArray
   end
 
   # GET /emps/new

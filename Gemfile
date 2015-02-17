@@ -38,4 +38,18 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# for passing some data from controller to javascript
+gem 'gon'
+
+# ユーザ認証
 gem 'devise'
+
+# ページ繰り
+gem 'will_paginate'
+
+# 国際化（日本語化）
+gem 'rails-i18n'
+
+# 検索条件の指示
+gem 'ransack'
+

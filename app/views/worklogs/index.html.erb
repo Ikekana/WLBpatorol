@@ -1,5 +1,18 @@
 <h1>就業実績一覧</h1>
-
+<br>
+<%= search_form_for @search do |f| %>
+  <%= f.label :reason_cont, '乖離理由' %>
+  <%= f.text_field :reason_cont %>
+  <br />
+  <%= f.label :created_at, '作成日' %>
+  <%= f.date_select :workday_gteq, include_blank: true %>〜
+  <%= f.date_select :workday_lteq, include_blank: true %>
+  <div>
+    <%= f.submit '検索する' %>
+  </div>
+<% end %>
+<br>
+<br>
 <table>
   <thead>
     <tr>
@@ -53,3 +66,11 @@
 <br>
 
 <%= link_to 'データ手入力', new_worklog_path %>
+<br>
+<hr>
+<%= form_tag 'worklogs/upload', :multipart => true do %>
+  CSVから一括登録:（*.csv）
+  <%= file_field_tag 'upload_file', :accept => 'text/comma-separated-values' %>
+  <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？" %>
+<% end %>
+
