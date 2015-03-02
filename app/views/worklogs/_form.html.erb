@@ -24,8 +24,8 @@
     <%= f.date_select :workday %>
   </div>
   <div class="field">
-    <%= f.label :holiday_id %><br>
-    <%= f.collection_select(:holiday_id, Holiday.order(:id), :id, :name, :include_blank => false, :selected => 6)  %>
+    <%= f.label :holidaytype_id %><br>
+    <%= f.collection_select(:holidaytype_id, Holidaytype.order(:id), :id, :name, :include_blank => false, :selected => 6)  %>
   </div>
   <div class="field">
     <%= f.label :worktype %><br>

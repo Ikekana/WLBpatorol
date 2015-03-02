@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212051539) do
+ActiveRecord::Schema.define(version: 20150302103309) do
 
   create_table "depts", force: true do |t|
     t.string   "code"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20150212051539) do
     t.datetime "updated_at"
   end
 
-  create_table "holidays", force: true do |t|
+  create_table "holidaytypes", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20150212051539) do
     t.string   "check"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "holiday_id"
+    t.integer  "holidaytype_id"
     t.integer  "worktype_id"
   end
 

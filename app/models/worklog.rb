@@ -4,7 +4,7 @@ class Worklog < ActiveRecord::Base
 
   belongs_to :dept
   belongs_to :emp
-  belongs_to :holiday
+  belongs_to :holidaytype
   belongs_to :worktype
   validates_associated :dept, :emp
   
@@ -38,7 +38,7 @@ class Worklog < ActiveRecord::Base
     w.dept_id     = Dept.where(:code => anArray[0]).first.id              # 所属コード
     w.emp_id      = Emp.where(:code => anArray[1]).first.id               # 従業員
     w.workday     = Date.strptime(anArray[2], "%Y/%m/%d")           # 日付
-    w.holiday_id  = get_id_from_class(Holiday,  :name, anArray[3].to_s.encode('utf-8', 'sjis'))          # 休暇
+    w.holidaytype_id  = get_id_from_class(Holidaytype,  :name, anArray[3].to_s.encode('utf-8', 'sjis'))          # 休暇
     w.worktype_id = get_id_from_class(Worktype, :name, anArray[4].to_s.encode('utf-8', 'sjis'))  # 勤務
     w.rc_start    = Time.strptime(anArray[5],"%H:%M")               # 出勤
     w.wk_start    = Time.strptime(anArray[6],"%H:%M")               # 始業

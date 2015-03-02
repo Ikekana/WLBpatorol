@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :worktypes
 
-  resources :holidays
+  resources :holidaytypes
 
   devise_for :users
   

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HolidayTest < ActiveSupport::TestCase
+class HolidaytypeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
