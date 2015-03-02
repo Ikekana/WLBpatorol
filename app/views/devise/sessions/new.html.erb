@@ -1,0 +1,52 @@
+<div style="background-image:url(/synphony.jpg);background-size: contain;height:400px;"/>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <table>
+    <tr>
+      <td width="40">  </td>
+      <td class="field" colspan="2">
+        <h3><font color="white">  ログインしてください。</font></h3>
+      </td>
+    </tr>
+    <tr>
+      <td width="40">  </td>
+      <td class="field">
+        <font color="white">
+          <%= f.label :email %>
+        </font>
+      </td>
+      <td>
+        <%= f.email_field :email, autofocus: true %>
+      </td>
+    </tr>
+    <tr>
+      <td width="40">  </td>
+      <td class="field">
+        <font color="white">
+          <%= f.label :password %>
+        </font>
+      </td>
+      <td>
+        <%= f.password_field :password, autocomplete: "off" %>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="40">  </td>
+      <td colspan="2">
+        <% if devise_mapping.rememberable? -%>
+          <div class="field">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end -%>
+        <div class="actions">
+        <%= f.submit "ログイン" %>
+        </div>
+      <% end %>
+        <font color="white">
+          <%= render "devise/shared/links" %>
+        </font>
+      </td>
+    </tr>
+  </table>
+</div>

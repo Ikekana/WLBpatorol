@@ -57,13 +57,17 @@
 </table>
   
 <br>
-
-<%= link_to 'Edit', edit_emp_path(@emp) %> |
-<%= link_to 'Back', emps_path %>
+<form>
+  <input id="display_chart0" type="button" value="グラフ表示" onclick="visualize(0)">
+  <input id="display_chart1" type="button" value="グラフ非表示"   onclick="visualize(1)">
+</form>
 
 <br />
   <div id="chart_div"></div>
 <br />
+
+<%= link_to 'Edit', edit_emp_path(@emp) %> |
+<%= link_to 'Back', emps_path %>
 
 <!------------------------------------------------------------------------>
 <!-- AJAX API のロード -->
@@ -86,20 +90,38 @@ function drawChart() {
   dataTable.addColumn({ type: 'number', id: 'hrs' });
     
   for (var row in gon.graph_data){
+ 	  //dataTable.addRow([ gon.graph_data[row][0], gon.graph_data[row][1] ])
  	  dataTable.addRow([ gon.graph_data[row][0], gon.graph_data[row][1] ])
-    };
+ 	  };
   
   
   // グラフのオプションを設定
 	var options = { title: '就業実績',
         width: 1200,
         height: 400,
+        legend: { position: "none" },
+        vAxis:  {title: "日付",  titleTextStyle: {fontSize: 12,}, },                 
+        hAxis:  {title: '勤務時間',  titleTextStyle: {fontSize: 12,}, },
+        backgroundColor: '#e5e4e2',
       };
-	// LineChart のオブジェクトの作成
+	// Chart のオブジェクトの作成
 	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 
 	// データテーブルとオプションを渡して、グラフを描画
 	chart.draw(dataTable, options);
 
 }
+  
+function visualize(num)
+{
+  if (num == 0)
+  {
+    document.getElementById("chart_div").style.display="block";
+  }
+  else
+  {
+    document.getElementById("chart_div").style.display="none";
+  }
+}  
+  
 </script>

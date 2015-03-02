@@ -22,10 +22,15 @@ class Worklog < ActiveRecord::Base
   
   def self.get_id_from_class(aClass, attr, value)
     o = aClass.where(attr => value)
-      if o.empty?
+    if o.empty?
+      puts '***** not found ***** <' + value.to_s + '>'
       return 1
     end
     return o.first.id
+  end
+  
+  def workdayYM
+    return self.workday.strftime("%m/%d")
   end
   
   def self.from_csv(anArray)
@@ -33,8 +38,8 @@ class Worklog < ActiveRecord::Base
     w.dept_id     = Dept.where(:code => anArray[0]).first.id              # 所属コード
     w.emp_id      = Emp.where(:code => anArray[1]).first.id               # 従業員
     w.workday     = Date.strptime(anArray[2], "%Y/%m/%d")           # 日付
-    w.holiday_id  = get_id_from_class(Holiday,  :name, anArray[3])          # 休暇
-    w.worktype_id = get_id_from_class(Worktype, :name, anArray[4])  # 勤務
+    w.holiday_id  = get_id_from_class(Holiday,  :name, anArray[3].to_s.encode('utf-8', 'sjis'))          # 休暇
+    w.worktype_id = get_id_from_class(Worktype, :name, anArray[4].to_s.encode('utf-8', 'sjis'))  # 勤務
     w.rc_start    = Time.strptime(anArray[5],"%H:%M")               # 出勤
     w.wk_start    = Time.strptime(anArray[6],"%H:%M")               # 始業
     w.wk_end      = Time.strptime(anArray[7],"%H:%M")               # 終業
