@@ -5,8 +5,10 @@
   <%= f.text_field :reason_cont %>
   <br />
   <%= f.label :created_at, '作成日' %>
-  <%= f.date_select :workday_gteq, include_blank: true %>〜
-  <%= f.date_select :workday_lteq, include_blank: true %>
+  <% first_day = Date.new(session[:year].to_i, session[:month].to_i , 1) %>
+  <% last_day = Date.new(session[:year].to_i, session[:month].to_i , -1) %>
+　<%= f.date_select :workday_gteq, :default => first_day %>〜
+  <%= f.date_select :workday_lteq, :default => last_day %>
   <div>
     <%= f.submit '検索する' %>
   </div>

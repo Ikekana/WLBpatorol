@@ -1,11 +1,22 @@
 Rails.application.routes.draw do
+  
+  root to:  'menus#show'
+  
+  get       'menus/show' => 'menus#show'
+
+  post      'menus/menu_selected' => 'menus#menu_selected'
+
+  get       'worklogs/index_edit' => 'worklogs#index_edit'
+
+  post      'worklogs/index_update' => 'worklogs#index_update'
+
+  resources :holidays
+
   resources :worktypes
 
   resources :holidaytypes
 
   devise_for :users
-  
-  root to: "worklogs#index"
   
   resources :worklogs
 

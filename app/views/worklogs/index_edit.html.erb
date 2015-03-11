@@ -1,0 +1,57 @@
+<h1>就業実績入力</h1>
+<br>
+
+<p>社員コード：<%= current_user.code %></P>
+<p>氏名：　　　<%= current_user.emp.name %></P>
+<br>
+
+<%= form_tag("/worklogs/index_update") do %>
+<table>
+  <thead>
+    <tr>
+      <th width="80" >日付</th>
+      <th width="60" >休日</th>
+      <th width="60" >勤務</th>
+      <th width="60" >出勤</th>
+      <th width="120" >始業</th>
+      <th width="120" >終業</th>
+      <th width="60" >退勤</th>
+      <th width="40" >休憩</th>
+      <th width="50" >乖離理由</th>
+      <th width="50" >備考</th>
+      <th width="50" >上長確認</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% for worklog in @worklogs %>
+      <%= fields_for worklog, nil, :index => worklog.id do | f | %>
+      <tr>
+        <td class="<%= worklog.workday_css_class %>" >
+            <%= worklog.workdayYMwday  %></td>
+        <td><%= f.collection_select(:holidaytype_id, Holidaytype.all, :id, :name) %></td>
+        <td><%= f.collection_select(:worktype_id, Worktype.all, :id, :name) %></td>
+        <td><%= worklog.rc_start.strftime("%H:%M") %></td>
+        <td><%= f.time_select(:wk_start) %>
+        <td><%= f.time_select(:wk_end) %>
+        <td><%= worklog.rc_end.strftime("%H:%M")  %></td>
+        <td><%= f.number_field(:rest, :in => 0..99) %></td>
+        <td><%= f.text_field(:reason, :size=>16) %></td>
+        <td><%= f.text_field(:comment, :size=>16) %></td>
+        <td><%= f.text_field(:check, :size=>16) %></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= submit_tag '更新する' %>
+<% end %>
+<br>
+<hr>
+<%= form_tag 'worklogs/upload', :multipart => true do %>
+  CSVから一括登録:（*.csv）
+  <%= file_field_tag 'upload_file', :accept => 'text/comma-separated-values' %>
+  <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？" %>
+<% end %>
+

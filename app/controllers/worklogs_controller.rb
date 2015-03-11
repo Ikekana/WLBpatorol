@@ -3,9 +3,24 @@ class WorklogsController < ApplicationController
 
   # GET /worklogs
   # GET /worklogs.json
-  def index
+  def index 
     @search = Worklog.search(params[:q])
+    @search.sorts = 'workday asc' if @search.sorts.empty?
     @worklogs = @search.result.order(:emp_id,:workday)
+  end
+  
+  def index_edit
+    @worklogs = Worklog.extractOneMonth(session[:year].to_i, session[:month].to_i, current_user.emp)
+  end
+
+  def index_update
+    puts params
+    params[:worklog].each do | id, data |
+      worklog = Worklog.find(id.to_i)
+      worklog.update_attributes(data)
+      worklog.save
+    end
+    redirect_to controller: 'worklogs', action: 'index_edit' and return
   end
 
   # GET /worklogs/1

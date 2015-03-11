@@ -33,7 +33,7 @@
     <% @worklogs.each do |worklog| %>
       <tr>
         <td><%= worklog.workday.strftime("%m/%d")  %></td>
-        <td><%= worklog.holiday.name %></td>
+        <td><%= worklog.holidaytype.name %></td>
         <td><%= worklog.worktype.name %></td>
         <td><%= worklog.rc_start.strftime("%H:%M") %></td>
         <td><%= worklog.wk_start.strftime("%H:%M")  %></td>

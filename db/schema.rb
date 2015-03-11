@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302103309) do
+ActiveRecord::Schema.define(version: 20150309052428) do
 
   create_table "depts", force: true do |t|
     t.string   "code"
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(version: 20150302103309) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "holidays", force: true do |t|
+    t.date     "holidaydate"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "comment"
   end
 
   create_table "holidaytypes", force: true do |t|
@@ -46,6 +54,7 @@ ActiveRecord::Schema.define(version: 20150302103309) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

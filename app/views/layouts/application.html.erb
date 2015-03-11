@@ -37,6 +37,9 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="/emps">従業員マスタ</a></li>
         </ul>
+        <ul class="nav navbar-nav">
+          <li class="active">作業年月：<%=session[:year] %>年<%=session[:month] %>月</li>
+        </ul>
       </div>
 　   </div>
   </nav>
@@ -56,20 +59,22 @@
   <div class="container">
   <hr>
      　　  <ul class="nav navbar-nav">
-        　　  <% if user_signed_in? %>
-　　　　　　   　　 ログイン中：<strong><%= current_user.email %></strong>. | 
-  　　  　　　　　　<%= link_to 'プロファイルの編集', edit_user_registration_path, :class => 'navbar-link' %> |
-    　　　　　　　　<%= link_to "ログアウト", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %> |
-  　　　　　　　　<% else %>
-    　　　　　　　　<%= link_to "サインアップ", new_user_registration_path, :class => 'navbar-link'  %> |
-    　　　　　　　　<%= link_to "ログイン", new_user_session_path, :class => 'navbar-link'  %>
-  　　　　　　　　<% end %>
+        　   <% if user_signed_in? %>
+　　　　　　    ログイン中：<strong><%= current_user.email %></strong>. | 
+  　　  　     <%= link_to 'プロファイルの編集', edit_user_registration_path, :class => 'navbar-link' %> |
+    　　　　　　<%= link_to "ログアウト", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %> |
+  　　　　　  <% else %>
+    　　　　　　<%= link_to "サインアップ", new_user_registration_path, :class => 'navbar-link'  %> |
+    　　　　　　<%= link_to "ログイン", new_user_session_path, :class => 'navbar-link'  %>
+  　　　　　　<% end %>
+             OGIS-Ri co., ltd.
       　　</ul>
-
-    OGIS-Ri co., ltd.
-  <hr>
+          <ul class="nav navbar-nav">
+             <%= image_tag("ogisri.png") %>
+          </ul>
   </div>
-</footer>
+  <hr>
+  </footer>
 </body>
 
 </html>
