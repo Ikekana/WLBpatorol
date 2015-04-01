@@ -9,6 +9,7 @@
 <table>
   <thead>
     <tr>
+      <th width="10" ></th>
       <th width="80" >日付</th>
       <th width="60" >休日</th>
       <th width="60" >勤務</th>
@@ -19,7 +20,8 @@
       <th width="40" >休憩</th>
       <th width="50" >乖離理由</th>
       <th width="50" >備考</th>
-      <th width="50" >上長確認</th>
+      <th width="20" >上長確認</th>
+      <th width="10" ></th>
     </tr>
   </thead>
 
@@ -27,18 +29,19 @@
     <% for worklog in @worklogs %>
       <%= fields_for worklog, nil, :index => worklog.id do | f | %>
       <tr>
-        <td class="<%= worklog.workday_css_class %>" >
-            <%= worklog.workdayYMwday  %></td>
+        <td><%= worklog.today_mark %></td>
+        <td class="<%= worklog.workday_css_class %>" > <%= worklog.workdayYMwday  %></td>
         <td><%= f.collection_select(:holidaytype_id, Holidaytype.all, :id, :name) %></td>
         <td><%= f.collection_select(:worktype_id, Worktype.all, :id, :name) %></td>
         <td><%= worklog.rc_start.strftime("%H:%M") %></td>
         <td><%= f.time_select(:wk_start) %>
         <td><%= f.time_select(:wk_end) %>
         <td><%= worklog.rc_end.strftime("%H:%M")  %></td>
-        <td><%= f.number_field(:rest, :in => 0..99) %></td>
+        <td><%= f.number_field(:rest, :in => 0..99, :style=>"text-align:right") %></td>
         <td><%= f.text_field(:reason, :size=>16) %></td>
         <td><%= f.text_field(:comment, :size=>16) %></td>
-        <td><%= f.text_field(:check, :size=>16) %></td>
+        <td><%= f.text_field(:check, :size=>10, :disabled => true) %></td>
+        <td><%= worklog.today_mark %></td>
       </tr>
       <% end %>
     <% end %>

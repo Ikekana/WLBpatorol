@@ -8,6 +8,7 @@ class Worklog < ActiveRecord::Base
   belongs_to :worktype
   validates_associated :dept, :emp
   
+  # 一日10時間（休憩を除く）以上作業していたらtrueを返す。
   def over_work_in_day?
     if self.work_minutes_in_day > 600
       return true
@@ -15,11 +16,14 @@ class Worklog < ActiveRecord::Base
     return false
   end
   
+  # 一日の作業時間（休憩を除く）を分で返す。
   def work_minutes_in_day
     diff = self.wk_end - self.wk_start
     return (( diff / 60 )  - self.rest)
   end
   
+  # マスタから名前を逆引きして、そのマスタデータのidを返す。
+  # 見つからなかったらidとして1をセットする。
   def self.get_id_from_class(aClass, attr, value)
     o = aClass.where(attr => value)
     if o.empty?
@@ -29,15 +33,18 @@ class Worklog < ActiveRecord::Base
     return o.first.id
   end
   
+  # 作業日(属性workday)をmm/dd形式で返す。
   def workdayYM
     return self.workday.strftime("%m/%d")
   end
   
+  # 作業日(属性workday)をmm/dd形式＋曜日で返す。
   def workdayYMwday
-    wdays = ["日", "月", "火", "水", "木", "金", "土"]
-    self.workdayYM + " (" + wdays[self.workday.wday] + ")"
+    @@wdays = ["日", "月", "火", "水", "木", "金", "土"]
+    self.workdayYM + " (" + @@wdays[self.workday.wday] + ")"
   end
   
+  # CSVを解析してworklogオブジェクトを作成して返す。
   def self.from_csv(anArray)
     w = new
     w.dept_id     = Dept.where(:code => anArray[0]).first.id              # 所属コード
@@ -57,10 +64,13 @@ class Worklog < ActiveRecord::Base
     return w   
   end
   
+  # 作業日の日付部分だけをintegerとして返す。
   def day
     return self.workday.day
   end
 
+  # 一か月分のworklogをDBから抽出し、Arrayにして返す。
+  # DBに存在しない場合は、新規オブジェクトを作成してArrayにセットする
   def self.extractOneMonth(year, month, emp)
     first = Date.new(year, month, 1)
     last  = Date.new(year, month, -1)
@@ -75,33 +85,75 @@ class Worklog < ActiveRecord::Base
         log = Worklog.new(:workday => Date.new(year, month, i), :emp_id => emp.id)
         log.set_defaultAttributes
       end
+      log.dept_id = 1652 # 仮実装
+      # 今日のレコードがあれば、現在時刻に応じて作業開始あるいは終了時間に現在時刻をセットする
+      if log.current_day?
+        current_clock = Time.zone.now
+        if current_clock.hour < 13
+          log.wk_start = current_clock
+        else
+          log.wk_end   = current_clock
+        end
+      end
       anArray.append(log)
     end
     return anArray
   end
   
-  # 休日（土日＋祝日）であれば、それを示すＣＳＳのクラス名を返す
+  # 作業日が休日（土日or祝日）か否かを返す（労働日の場合はFalse）
+  # 現状、土日は無条件に休日と見なし、その上でHolidaysマスタにエントリがあれば休日とみなしている
+  def isOff? 
+    if self.workday.wday == 0 || self.workday.wday == 6
+      return true
+    end
+    if Holiday.isHoliday?(self.workday)
+      return true
+    end
+    return false
+  end
+  
+  # 休日であれば、それのことを示すＣＳＳのクラス名を返す
   def workday_css_class
-  if self.workday.wday == 0 || self.workday.wday == 6
-    return 'workday-off'.html_safe
-  end
-  if Holiday.isHoliday?(self.workday)
-    return 'workday-off'.html_safe
-  end
+    if self.isOff?
+      return 'workday-off'.html_safe
+    end
     return ''
   end
   
+  # 新規オブジェクトを作成する際に、デフォルト値をセットする。
   def set_defaultAttributes
     year  = self.workday.year
     month = self.workday.month
     day   = self.workday.day
     
-    @@defaultAttributes = {:rc_start=>Time.local(year,month,day, 00,00,00), :wk_start=>Time.local(year,month,day, 9,00,00), :rc_end=>Time.local(year,month,day, 00,00,00), :wk_end=>Time.local(year,month,day, 17,45,00) }
+    @@workdayAttributes = {:rc_start=>Time.local(year,month,day, 00,00,00), :wk_start=>Time.local(year,month,day, 9,00,00), :rc_end=>Time.local(year,month,day, 00,00,00), :wk_end=>Time.local(year,month,day, 17,45,00), :rest=>60}
     
-    self.attributes = @@defaultAttributes
+    @@holidayAttributes = {:rc_start=>Time.local(year,month,day, 00,00,00), :wk_start=>Time.local(year,month,day, 00,00,00), :rc_end=>Time.local(year,month,day, 00,00,00), :wk_end=>Time.local(year,month,day, 00,00,00), :rest=>0 }
+    
+    if isOff?
+      self.attributes = @@holidayAttributes
+      self.holidaytype_id = 2
+      self.worktype_id    = 2
+    else
+      self.attributes = @@workdayAttributes
+      self.holidaytype_id = 1
+      self.worktype_id    = 1
+    end
+    
+    puts '*** new log is ' + self.attributes.to_s
     
     return self
 
   end
 
+  def current_day?
+    return (self.workday == Date.current)
+  end
+  
+  def today_mark
+    if current_day?
+      return '◆'
+    end
+    return ' '
+  end
 end
