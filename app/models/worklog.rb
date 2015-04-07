@@ -84,17 +84,19 @@ class Worklog < ActiveRecord::Base
       if log.nil?
         log = Worklog.new(:workday => Date.new(year, month, i), :emp_id => emp.id)
         log.set_defaultAttributes
+        log.save
       end
       log.dept_id = 1652 # 仮実装
       # 今日のレコードがあれば、現在時刻に応じて作業開始あるいは終了時間に現在時刻をセットする
-      if log.current_day?
-        current_clock = Time.zone.now
-        if current_clock.hour < 13
-          log.wk_start = current_clock
-        else
-          log.wk_end   = current_clock
-        end
-      end
+      # ワンクリック登録を作ったので、いったん機能を停止
+      # if log.current_day?
+      # current_clock = Time.zone.now
+      #  if current_clock.hour < 13
+      #    log.wk_start = current_clock
+      #  else
+      #    log.wk_end   = current_clock
+      #  end
+      #end
       anArray.append(log)
     end
     return anArray
@@ -112,7 +114,7 @@ class Worklog < ActiveRecord::Base
     return false
   end
   
-  # 休日であれば、それのことを示すＣＳＳのクラス名を返す
+  # 休日であれば、そのことを示すＣＳＳのクラス名を返す
   def workday_css_class
     if self.isOff?
       return 'workday-off'.html_safe
@@ -140,8 +142,6 @@ class Worklog < ActiveRecord::Base
       self.worktype_id    = 1
     end
     
-    puts '*** new log is ' + self.attributes.to_s
-    
     return self
 
   end
@@ -156,4 +156,5 @@ class Worklog < ActiveRecord::Base
     end
     return ' '
   end
+    
 end

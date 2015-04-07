@@ -1,67 +1,71 @@
-<p>
-  <strong>Dept:</strong>
-  <%= @worklog.dept.name %>
-</p>
+<div class="visible-lg">
+  <p>
+    <strong>Dept:</strong>
+    <%= @worklog.dept.name %>
+  </p>
 
-<p>
-  <strong>Emp:</strong>
-  <%= @worklog.emp.name %>
-</p>
+  <p>
+    <strong>Emp:</strong>
+    <%= @worklog.emp.name %>
+  </p>
 
-<p>
-  <strong>Workday:</strong>
-  <%= @worklog.workday %>
-</p>
+  <p>
+    <strong>Workday:</strong>
+    <%= @worklog.workday %>
+  </p>
 
-<p>
-  <strong>Holiday:</strong>
-  <%= @worklog.holidaytype.name %>
-</p>
+  <p>
+    <strong>Holiday:</strong>
+    <%= @worklog.holidaytype.name %>
+  </p>
 
-<p>
-  <strong>Worktype:</strong>
-  <%= @worklog.worktype.name %>
-</p>
+  <p>
+    <strong>Worktype:</strong>
+    <%= @worklog.worktype.name %>
+  </p>
 
-<p>
-  <strong>Rc start:</strong>
-  <%= @worklog.rc_start %>
-</p>
+  <p>
+    <strong>Rc start:</strong>
+    <%= @worklog.rc_start.strftime("%H:%M") %>
+  </p>
 
-<p>
-  <strong>Wk start:</strong>
-  <%= @worklog.wk_start %>
-</p>
+  <p>
+    <strong>Wk start:</strong>
+    <%= @worklog.wk_start.strftime("%H:%M") %>
+  </p>
 
-<p>
-  <strong>Wk end:</strong>
-  <%= @worklog.wk_end %>
-</p>
+  <p>
+    <strong>Wk end:</strong>
+    <%= @worklog.wk_end.strftime("%H:%M") %>
+  </p>
 
-<p>
-  <strong>Rc end:</strong>
-  <%= @worklog.rc_end %>
-</p>
+  <p>
+    <strong>Rc end:</strong>
+    <%= @worklog.rc_end.strftime("%H:%M") %>
+  </p>
 
-<p>
-  <strong>Rest:</strong>
-  <%= @worklog.rest %>
-</p>
+  <p>
+    <strong>Rest:</strong>
+    <%= @worklog.rest %>
+  </p>
 
-<p>
-  <strong>Reason:</strong>
-  <%= @worklog.reason %>
-</p>
+  <p>
+    <strong>Reason:</strong>
+    <%= @worklog.reason %>
+  </p>
 
-<p>
-  <strong>Comment:</strong>
-  <%= @worklog.comment %>
-</p>
+  <p>
+    <strong>Comment:</strong>
+    <%= @worklog.comment %>
+  </p>
 
-<p>
-  <strong>Check:</strong>
-  <%= @worklog.check %>
-</p>
+  <p>
+    <strong>Check:</strong>
+    <%= @worklog.check %>
+  </p>
 
-<%= link_to 'Edit', edit_worklog_path(@worklog) %> |
-<%= link_to 'Back', worklogs_path %>
+  <%= link_to 'Edit', edit_worklog_path(@worklog) %> |
+  <%= link_to 'Back', worklogs_path %>
+</div>
+  
+  

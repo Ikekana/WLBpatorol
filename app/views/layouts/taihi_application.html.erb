@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WLBpatorol</title>
+  <link rel="stylesheet" href="//railsgirls.com/assets/bootstrap.css" />
+  <link rel="stylesheet" href="//railsgirls.com/assets/bootstrap-theme.css" />
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= Gon::Base.render_data({}) %>
+  <p class="navbar-text pull-right">
+  </head>
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div>
+          <%= image_tag("/worklifeharmony.gif", :class => "navbar-brand", :size => "60x55") %>
+          <a class="navbar-brand" href="/">Work Life Harmony in OGIS</a>
+        </div>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+        </ul>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/worklogs">作業実績一覧</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/depts">組織マスタ</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/emps">従業員マスタ</a></li>
+        </ul>
+        <ul class="nav navbar-nav">
+          <li class="active">作業年月：<%=session[:year] %>年<%=session[:month] %>月</li>
+        </ul>
+      </div>
+　   </div>
+  </nav>
+
+  <% if notice %>
+    <p class="alert alert-success"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+
+<div class="container">
+  <%= yield %>
+</div>
+
+<footer>
+  <div class="container">
+  <hr>
+     　　  <ul class="nav navbar-nav">
+        　   <% if user_signed_in? %>
+　　　　　　    ログイン中：<strong><%= current_user.email %></strong>. | 
+  　　  　     <%= link_to 'プロファイルの編集', edit_user_registration_path, :class => 'navbar-link' %> |
+    　　　　　　<%= link_to "ログアウト", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %> |
+  　　　　　  <% else %>
+    　　　　　　<%= link_to "サインアップ", new_user_registration_path, :class => 'navbar-link'  %> |
+    　　　　　　<%= link_to "ログイン", new_user_session_path, :class => 'navbar-link'  %>
+  　　　　　　<% end %>
+             OGIS-Ri co., ltd.
+      　　</ul>
+          <ul class="nav navbar-nav">
+             <%= image_tag("ogisri.png") %>
+          </ul>
+  </div>
+  <hr>
+  </footer>
+</body>
+
+</html>

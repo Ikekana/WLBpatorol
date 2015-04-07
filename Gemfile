@@ -1,10 +1,18 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
+# Use sqlite3 as the database for Active Record in development
+group  :development  do
+  gem 'sqlite3'
+end
+# Use postgres as the database for Active Record in production
+group  :production  do
+  gem  'pg'
+  gem  'rails_12factor'
+end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -53,3 +61,7 @@ gem 'rails-i18n'
 # 検索条件の指示
 gem 'ransack'
 
+# CSS Library twitter-bootstrap 
+gem 'twitter-bootstrap-rails'
+gem "therubyracer"
+gem "less-rails"

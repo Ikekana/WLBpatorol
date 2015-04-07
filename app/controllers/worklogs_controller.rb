@@ -1,6 +1,5 @@
 class WorklogsController < ApplicationController
   before_action :set_worklog, only: [:show, :edit, :update, :destroy]
-
   # GET /worklogs
   # GET /worklogs.json
   def index 
@@ -14,15 +13,20 @@ class WorklogsController < ApplicationController
   end
 
   def index_update
-    puts params
     params[:worklog].each do | id, data |
-      worklog = Worklog.find(id.to_i)
-      worklog.update_attributes(data)
-      worklog.save
+      worklog = Worklog.find(id)
+      worklog.update(data)
     end
     redirect_to controller: 'worklogs', action: 'index_edit' and return
   end
 
+  def edit_today
+    res = Worklog.where(:workday => Date.today)
+    if res.present?
+      redirect_to("/worklogs/" + res.first.id.to_s + "/edit")
+    end
+  end
+  
   # GET /worklogs/1
   # GET /worklogs/1.json
   def show
@@ -31,7 +35,6 @@ class WorklogsController < ApplicationController
   # GET /worklogs/new
   def new
     @worklog = Worklog.new
-    @holiday_list = ["a","b","c"]
   end
 
   # GET /worklogs/1/edit
@@ -59,6 +62,16 @@ class WorklogsController < ApplicationController
   def update
     respond_to do |format|
       if @worklog.update(worklog_params)
+        if params[:wk_start]
+          @worklog.update_attribute(:wk_start, Time.zone.now)
+          puts "*********** wk_start *********** " + @worklog.wk_start.to_s + '----' + @worklog.wk_end.to_s # + "zone hrs : " +  Time.zone.now.hour 
+          @worklog.save
+        end
+        if params[:wk_end]
+          @worklog.update_attribute(:wk_end, Time.zone.now)
+          puts "***********  wk_end  *********** " + @worklog.wk_start.to_s + '----' + @worklog.wk_end.to_s + "zone hrs : " +  Time.zone.now.hour.to_s
+          @worklog.save
+        end
         format.html { redirect_to @worklog, notice: 'Worklog was successfully updated.' }
         format.json { render :show, status: :ok, location: @worklog }
       else
@@ -77,7 +90,7 @@ class WorklogsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
   # CSV Upload /upload
   def upload
     require 'csv'
@@ -99,6 +112,6 @@ class WorklogsController < ApplicationController
   
     # Never trust parameters from the scary internet, only allow the white list through.
     def worklog_params
-      params.require(:worklog).permit(:dept_id, :emp_id, :workday, :holiday, :worktype, :rc_start, :wk_start, :wk_end, :rc_end, :rest, :reason, :comment, :check, :holiday_id, :worktype_id)
+      params.require(:worklog).permit(:dept_id, :emp_id, :workday, :holidaytype_id, :worktype_id, :rc_start, :wk_start, :wk_end, :rc_end, :rest, :reason, :comment, :check)
     end
 end

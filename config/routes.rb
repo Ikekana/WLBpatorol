@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get       'worklogs/index_edit' => 'worklogs#index_edit'
 
   post      'worklogs/index_update' => 'worklogs#index_update'
+  
+  get       'worklogs/edit_today' => 'worklogs#edit_today'
 
   resources :holidays
 

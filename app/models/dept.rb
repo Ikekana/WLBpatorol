@@ -1,6 +1,9 @@
 require 'csv'
 
 class Dept < ActiveRecord::Base
+  
+  has_many :emps, through: :assignments
+  
   validates_uniqueness_of :code
   
   def self.to_csv(options = {})
@@ -21,5 +24,19 @@ class Dept < ActiveRecord::Base
     d.name  = anArray[1].to_s.encode('utf-8', 'sjis')
     return d    
   end
-  
+
+  # 暗号化
+  def encryptor 
+    secret = 'ogis-ri_human_resource_ogis-ri_human_resource'             
+    ::ActiveSupport::MessageEncryptor.new(secret)                
+  end
+
+  def name=(val)
+    write_attribute("name", self.encryptor.encrypt_and_sign(val))             
+  end 
+
+  def name
+    self.encryptor.decrypt_and_verify(read_attribute("name"))          
+  end  
+
 end

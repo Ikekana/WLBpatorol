@@ -1,6 +1,10 @@
 class Emp < ActiveRecord::Base
+  
+  has_many :depts, through: :assignments
+  
   validates_uniqueness_of :code
 
+  
   def self.to_csv(options = {})
     CSV.generate(options) do | csv |
       csv << [ "code", "name" ]
