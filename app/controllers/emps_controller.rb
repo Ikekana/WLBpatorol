@@ -88,6 +88,6 @@ class EmpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def emp_params
-      params.require(:emp).permit(:code, :name)
+      params.require(:emp).permit(:code, :name, :dept_code, :isadmin)
     end
 end

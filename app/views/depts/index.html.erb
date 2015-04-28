@@ -17,7 +17,7 @@
     <% @depts.each do |dept| %>
       <tr>
         <td><%= link_to dept.id, dept_path(dept) %></td>
-        <td><%= dept.code %></td>
+        <td><%= dept.code + ':' + dept.code_high %></td>
         <td><%= dept.name %></td>
         <td><%=l dept.created_at %></td>
         <td>

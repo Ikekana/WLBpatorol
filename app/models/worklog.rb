@@ -2,8 +2,8 @@
 
 class Worklog < ActiveRecord::Base
 
-  belongs_to :dept
-  belongs_to :emp
+  belongs_to :dept, class_name: "Dept", foreign_key: :dept_code, primary_key: :code
+  belongs_to :emp, class_name: "Emp", foreign_key: :emp_code, primary_key: :code
   belongs_to :holidaytype
   belongs_to :worktype
   validates_associated :dept, :emp
@@ -82,11 +82,11 @@ class Worklog < ActiveRecord::Base
     for i in 1..last.day
       log = fromDB.fetch(i, nil)
       if log.nil?
-        log = Worklog.new(:workday => Date.new(year, month, i), :emp_id => emp.id)
-        log.set_defaultAttributes
+        log = Worklog.new_on(year, month, i, emp)
+        #log = Worklog.new(:workday => Date.new(year, month, i), :emp_id => emp.id, :dept_code => emp.dept.code)
+        #log.set_defaultAttributes
         log.save
       end
-      log.dept_id = 1652 # 仮実装
       # 今日のレコードがあれば、現在時刻に応じて作業開始あるいは終了時間に現在時刻をセットする
       # ワンクリック登録を作ったので、いったん機能を停止
       # if log.current_day?
@@ -156,5 +156,11 @@ class Worklog < ActiveRecord::Base
     end
     return ' '
   end
-    
+  
+  def self.new_on(year, month, day, emp)
+    newlog = self.new(:workday => Date.new(year, month, day), :emp_id => emp.id, :dept_code => emp.dept.code)
+    newlog.set_defaultAttributes
+    return newlog
+  end
+  
 end

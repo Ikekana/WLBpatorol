@@ -8,6 +8,8 @@ ja:
         id: "ID"
         name: 氏名
         code: 社員コード
+        deptname: 所属部署
+        isadmin: 管理者
         created_at: "登録日時"
         updated_at: "更新日時"
       dept:

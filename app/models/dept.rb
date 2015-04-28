@@ -2,9 +2,14 @@ require 'csv'
 
 class Dept < ActiveRecord::Base
   
-  has_many :emps, through: :assignments
+  # has_many :emps, through: :assignments
   
-  validates_uniqueness_of :code
+  has_many :emps
+  has_many :worklogs, foreign_key: :dept_code
+  
+  self.primary_key = :code
+  
+  # validates_uniqueness_of :code
   
   def self.to_csv(options = {})
     CSV.generate(options) do | csv |
@@ -39,4 +44,20 @@ class Dept < ActiveRecord::Base
     self.encryptor.decrypt_and_verify(read_attribute("name"))          
   end  
 
+  def code_high
+    high = self.code.clone
+    n    = high.length
+    for i in 1..n do
+      if high[n - i] == '0'
+        high[n - i] = 'z'
+      else
+        break
+      end
+    end
+    return high
+  end
+  
+  def code_range
+    return self.code..selfcode_hight
+  end
 end

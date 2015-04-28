@@ -23,8 +23,9 @@ class WorklogsController < ApplicationController
   def edit_today
     res = Worklog.where(:workday => Date.today)
     if res.present?
-      redirect_to("/worklogs/" + res.first.id.to_s + "/edit")
+      redirect_to("/worklogs/" + res.first.id.to_s + "/edit") and return
     end
+    redirect_to("/worklogs/new")
   end
   
   # GET /worklogs/1
@@ -34,7 +35,9 @@ class WorklogsController < ApplicationController
 
   # GET /worklogs/new
   def new
-    @worklog = Worklog.new
+    # @worklog = Worklog.new
+    today = Date.today
+    @worklog = Worklog.new_on(today.year, today.month, today.day, current_user.emp)
   end
 
   # GET /worklogs/1/edit
@@ -48,6 +51,16 @@ class WorklogsController < ApplicationController
 
     respond_to do |format|
       if @worklog.save
+        if params[:wk_start]
+          @worklog.update_attribute(:wk_start, Time.zone.now)
+          puts "*********** wk_start *********** " + @worklog.wk_start.to_s + '----' + @worklog.wk_end.to_s # + "zone hrs : " +  Time.zone.now.hour 
+          @worklog.save
+        end
+        if params[:wk_end]
+          @worklog.update_attribute(:wk_end, Time.zone.now)
+          puts "***********  wk_end  *********** " + @worklog.wk_start.to_s + '----' + @worklog.wk_end.to_s + "zone hrs : " +  Time.zone.now.hour.to_s
+          @worklog.save
+        end
         format.html { redirect_to @worklog, notice: 'Worklog was successfully created.' }
         format.json { render :show, status: :created, location: @worklog }
       else

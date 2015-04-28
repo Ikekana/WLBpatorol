@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403043814) do
+ActiveRecord::Schema.define(version: 20150428073519) do
 
   create_table "assignments", force: true do |t|
     t.integer  "dept_id"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(version: 20150403043814) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "isadmin"
+    t.string   "dept_code"
   end
 
   create_table "holidays", force: true do |t|
@@ -88,6 +90,8 @@ ActiveRecord::Schema.define(version: 20150403043814) do
     t.datetime "updated_at"
     t.integer  "holidaytype_id"
     t.integer  "worktype_id"
+    t.string   "dept_code"
+    t.string   "emp_code"
   end
 
   add_index "worklogs", ["dept_id"], name: "index_worklogs_on_dept_id"

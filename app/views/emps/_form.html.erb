@@ -30,6 +30,21 @@
     <%= error_span(@emp[:name]) %>
   </div>
 
+  <div class="control-group">
+    <%= f.label :dept, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.collection_select(:dept_code, Dept.order(:code), :code, :name, :include_blank => true, :class => 'form-control' ) %>  
+    </div>
+    <%= error_span(@emp[:name]) %>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :isadmin, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box 'isadmin', {:checked => @emp.isadmin }  %>  
+    </div>
+    <%= error_span(@emp[:name]) %>
+  </div>
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

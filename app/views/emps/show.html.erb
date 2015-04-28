@@ -8,6 +8,10 @@
   <dd><%= @emp.code %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @emp.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:deptname) %>:</strong></dt>
+  <dd><%= @emp.deptname %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:isadmin) %>:</strong></dt>
+  <dd><%= check_box '', '', {:checked => @emp.isadmin, :disabled => true} %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

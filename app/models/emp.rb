@@ -1,8 +1,11 @@
 class Emp < ActiveRecord::Base
   
-  has_many :depts, through: :assignments
+  # has_many :depts, through: :assignments
   
-  validates_uniqueness_of :code
+  belongs_to :dept, :foreign_key => "dept_code"
+  
+  self.primary_key = :code
+  # validates_uniqueness_of :code
 
   
   def self.to_csv(options = {})
@@ -38,4 +41,8 @@ class Emp < ActiveRecord::Base
     self.encryptor.decrypt_and_verify(read_attribute("name"))          
   end  
 
+  def deptname
+    return '' if self.dept.nil?
+    return self.dept.name
+  end
 end
