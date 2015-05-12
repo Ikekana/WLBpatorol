@@ -1,4 +1,4 @@
-<h1>就業実績一覧</h1>
+<h1>就業実績一覧(テスト用の画面)</h1>
 <br>
 <%= search_form_for @search do |f| %>
   <%= f.label :reason_cont, '乖離理由' %>
@@ -75,4 +75,20 @@
   <%= file_field_tag 'upload_file', :accept => 'text/comma-separated-values' %>
   <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？" %>
 <% end %>
+
+<br>
+*アップロード・フォーマット（CSV） ヘッダ行含まず<br>
+  1. 組織コード（英数）<br>
+  2. 社員コード（英数）<br>
+  3. 日付（yyyy/mm/dd）<br>
+  4. 休暇区分（名称）<br>
+  5. 勤務区分（名称）<br>
+  6. 出勤(hh:mm)<br>
+  7. 始業(hh:mm)<br>
+  8. 終業(hh:mm)<br>
+  9. 退勤(hh:mm)<br>
+ 10. 休憩(整数)<br>
+ 11. 乖離理由<br>
+ 12. 備考<br>
+ 13. チェック<br>
 

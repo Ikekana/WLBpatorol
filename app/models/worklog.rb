@@ -47,10 +47,10 @@ class Worklog < ActiveRecord::Base
   # CSVを解析してworklogオブジェクトを作成して返す。
   def self.from_csv(anArray)
     w = new
-    w.dept_id     = Dept.where(:code => anArray[0]).first.id              # 所属コード
-    w.emp_id      = Emp.where(:code => anArray[1]).first.id               # 従業員
+    w.dept_code   = anArray[0]                                      # 所属コード
+    w.emp_code    = anArray[1]                                      # 社員コード
     w.workday     = Date.strptime(anArray[2], "%Y/%m/%d")           # 日付
-    w.holidaytype_id  = get_id_from_class(Holidaytype,  :name, anArray[3].to_s.encode('utf-8', 'sjis'))          # 休暇
+    w.holidaytype_id  = get_id_from_class(Holidaytype,  :name, anArray[3].to_s.encode('utf-8', 'sjis'))  # 休暇
     w.worktype_id = get_id_from_class(Worktype, :name, anArray[4].to_s.encode('utf-8', 'sjis'))  # 勤務
     w.rc_start    = Time.strptime(anArray[5],"%H:%M")               # 出勤
     w.wk_start    = Time.strptime(anArray[6],"%H:%M")               # 始業
@@ -76,7 +76,7 @@ class Worklog < ActiveRecord::Base
     last  = Date.new(year, month, -1)
     anArray = Array.new()
     fromDB  = Hash.new()
-    self.where(workday: first..last).each do | worklog |
+    self.where(workday: first..last, emp_code: emp.code).each do | worklog |
       fromDB.store(worklog.day, worklog)
     end
     for i in 1..last.day
@@ -158,7 +158,7 @@ class Worklog < ActiveRecord::Base
   end
   
   def self.new_on(year, month, day, emp)
-    newlog = self.new(:workday => Date.new(year, month, day), :emp_id => emp.id, :dept_code => emp.dept.code)
+    newlog = self.new(:workday => Date.new(year, month, day), :emp_code => emp.code, :dept_code => emp.dept.code)
     newlog.set_defaultAttributes
     return newlog
   end

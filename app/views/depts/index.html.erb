@@ -6,7 +6,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:code) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -17,7 +16,6 @@
     <% @depts.each do |dept| %>
       <tr>
         <td><%= link_to dept.id, dept_path(dept) %></td>
-        <td><%= dept.code + ':' + dept.code_high %></td>
         <td><%= dept.name %></td>
         <td><%=l dept.created_at %></td>
         <td>
@@ -45,3 +43,7 @@
   <%= file_field_tag 'upload_file', :accept => 'text/comma-separated-values' %>
   <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？", :class => 'btn btn-warning btn-xs' %>
 <% end %>
+<br>
+*アップロード・フォーマット（CSV） ヘッダ行含まず<br>
+　1. 組織コード（英数）<br>
+　2. 組織名<br>

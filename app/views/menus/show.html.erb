@@ -1,17 +1,14 @@
 <div class="visible-lg">
   <h1>メインメニュー</h1>
   <br>
-  <h3 class="lead" >業務</h3>
+  <h3 class="lead" >業務表</h3>
   <%= form_tag('/menus/menu_selected') do %>
-  対象となる年月を選んでください
-  <%= number_field_tag('year', Date.today.year, {:min=>2010, :max=>2020, :align=>"right"} ) %>年
-  <%= number_field_tag('month', Date.today.month, {:min=>1, :max=>12}) %>月
-  <br>
-  <br>
-  <%= radio_button_tag 'selected', 'edit_worklogs'%>就業時間を入力する
-  <br>
-  <br>
-  <%= submit_tag 'まとめ登録', :class=>"btn btn-default btn-lg" %>
+    対象となる年月を選んでください
+    <%= number_field_tag('year', Date.today.year, {:min=>2010, :max=>2020, :align=>"right"} ) %>年
+    <%= number_field_tag('month', Date.today.month, {:min=>1, :max=>12}) %>月
+    <br>
+    <br>
+    <%= submit_tag 'まとめ登録', :class=>"btn btn-default btn-lg" %>
   <% end %>
   <br>
 </div>
@@ -20,6 +17,15 @@
   </p>
   <br>
   <br>
+<div >
+  <h3 class="lead">組織の状況</h3>
+  <div class="bs-callout bs-callout-danger">
+    <p><%= link_to 'メンバー一覧',   '/index_members',        :class=>'btn btn-link' %></p>
+    <p><%= link_to '昨日の状況',     '/worklogs/oneday/yesterday',        :class=>'btn btn-link' %></p>
+    <p><%= link_to '今月の状況',     depts_path,        :class=>'btn btn-link' %></p>
+  </div>
+</div>
+
 <div >
   <h3 class="lead">マスター管理</h3>
   <div class="bs-callout bs-callout-danger">

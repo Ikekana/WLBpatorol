@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   
   get       'worklogs/edit_today' => 'worklogs#edit_today'
 
+  get       'index_members' => 'emps#index_members'
+  
+  get       'worklogs/oneday/:date' => 'worklogs#index_oneday'
+  
   resources :holidays
 
   resources :worktypes

@@ -63,5 +63,7 @@ gem 'ransack'
 
 # CSS Library twitter-bootstrap 
 gem 'twitter-bootstrap-rails'
-gem "therubyracer"
-gem "less-rails"
+gem 'therubyracer'
+gem 'less-rails'
+
+gem 'jquery-turbolinks' 

@@ -28,6 +28,33 @@ class WorklogsController < ApplicationController
     redirect_to("/worklogs/new")
   end
   
+  # 一日分のメンバーの勤務状況を抽出する
+  def index_oneday
+    format = "%Y-%m-%d"
+    if session[:date].nil?
+      session[:date] = Date.today.strftime(format)
+    end
+
+    if params[:date] == 'yesterday'
+      session[:date] = Date.strptime(session[:date], format) - 1
+    else
+      if params[:date] == 'tomorrow'
+        session[:date] = Date.strptime(session[:date], format) + 1
+      end
+    end
+    session[:date] = session[:date].strftime(format)
+
+    @worklogs = Worklog.where(:dept_code => current_user.dept_range, :workday => session[:date]).order(:dept_code, :emp_code)
+
+    anArray = Array.new()
+    @worklogs.each do | worklog |
+      anArray.append([worklog.dept.name, worklog.emp.name, worklog.wk_start.hour, worklog.wk_start.min, worklog.wk_start.sec, worklog.wk_end.hour, worklog.wk_end.min, worklog.wk_end.sec ])
+    end
+    gon.graph_data = anArray
+    puts anArray
+
+    
+  end
   # GET /worklogs/1
   # GET /worklogs/1.json
   def show

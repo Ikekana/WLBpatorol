@@ -44,12 +44,21 @@ class Dept < ActiveRecord::Base
     self.encryptor.decrypt_and_verify(read_attribute("name"))          
   end  
 
-  def code_high
+  def uncoded_name=(val)
+    write_attribute("name", self.encryptor.encrypt_and_sign(val))             
+  end 
+
+  def uncoded_name
+    self.encryptor.decrypt_and_verify(read_attribute("name"))          
+  end  
+  
+
+  def code_with_wildcard
     high = self.code.clone
     n    = high.length
     for i in 1..n do
       if high[n - i] == '0'
-        high[n - i] = 'z'
+        high[n - i] = 'Z'
       else
         break
       end
@@ -58,6 +67,10 @@ class Dept < ActiveRecord::Base
   end
   
   def code_range
-    return self.code..selfcode_hight
+    return self.code..self.code_with_wildcard
+  end
+  
+  def all_depts_below
+    Dept.where(:code => code_range)
   end
 end

@@ -1,0 +1,26 @@
+<%- model_class = Emp -%>
+<div class="page-header">
+  <h1>あなたの組織のメンバー一覧</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:code) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:deptname) %></th>
+      <th><%= model_class.human_attribute_name(:isadmin) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @emps.each do |emp| %>
+      <tr>
+        <td><%= link_to emp.id, emp_path(emp) %></td>
+        <td><%= emp.name %></td>
+        <td><%= emp.deptname %></td>
+        <td align="center" ><%= check_box '', '', {:checked => emp.isadmin, :disabled => true} %></td>
+        <td><%=l emp.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

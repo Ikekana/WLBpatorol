@@ -5,7 +5,6 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:code) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:deptname) %></th>
@@ -18,7 +17,6 @@
     <% @emps.each do |emp| %>
       <tr>
         <td><%= link_to emp.id, emp_path(emp) %></td>
-        <td><%= emp.code %></td>
         <td><%= emp.name %></td>
         <td><%= emp.deptname %></td>
         <td align="center" ><%= check_box '', '', {:checked => emp.isadmin, :disabled => true} %></td>
@@ -48,4 +46,11 @@
   <%= file_field_tag 'upload_file', :accept => 'text/comma-separated-values' %>
   <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？", :class => 'btn btn-warning btn-xs' %>
 <% end %>
+<br>
+*アップロード・フォーマット（CSV） ヘッダ行含まず<br>
+　1. 氏名コード（英数）<br>
+　2. 氏名<br>
+　3. 所属部署コード（英数）主務のみ<br>
+　4. 役職コード<br>
+
 

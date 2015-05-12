@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20150428073519) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+  
+  add_index "depts", ["code"], name: "index_depts_on_code", unique: true
 
   create_table "emps", force: true do |t|
     t.string   "code"
@@ -38,6 +40,8 @@ ActiveRecord::Schema.define(version: 20150428073519) do
     t.boolean  "isadmin"
     t.string   "dept_code"
   end
+
+  add_index "emps", ["code"], name: "index_emps_on_code", unique: true
 
   create_table "holidays", force: true do |t|
     t.date     "holidaydate"

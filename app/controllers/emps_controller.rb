@@ -7,6 +7,10 @@ class EmpsController < ApplicationController
     @emps = Emp.all
   end
 
+  def index_members
+    @emps = Emp.where(:dept_code => current_user.emp.dept.code_range).order(:dept_code, :code)
+  end
+  
   # GET /emps/1
   # GET /emps/1.json
   def show
@@ -73,8 +77,8 @@ class EmpsController < ApplicationController
 	  if !params[:upload_file].blank?
 	    reader = params[:upload_file].read
 	    CSV.parse(reader) do |row|
-	      d = Emp.from_csv(row)
-	      d.save()
+        e = Emp.from_csv(row)
+        e.save()
 	    end
 	  end
 	  redirect_to :action => :index
@@ -88,6 +92,6 @@ class EmpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def emp_params
-      params.require(:emp).permit(:code, :name, :dept_code, :isadmin)
+      params.require(:emp).permit(:code, :name, :dept_code, :isadmin, :uncoded_name)
     end
 end

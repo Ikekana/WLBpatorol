@@ -12,4 +12,7 @@ class User < ActiveRecord::Base
     Emp.where(:code => self.code).first
   end
   
+  def dept_range
+    return self.emp.dept.code_range
+  end
 end
