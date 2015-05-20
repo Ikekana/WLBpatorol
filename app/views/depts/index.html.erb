@@ -31,11 +31,12 @@
     <% end %>
   </tbody>
 </table>
-
+<br>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_dept_path,
             :class => 'btn btn-primary' %>
-
+<br>
+<%= will_paginate @depts, { :previous_label => '&lt 前へ', :next_label => '次へ &gt' ,:renderer => BootstrapPagination::Rails }  %>
 <br>
 <hr>
 <%= form_tag 'depts/upload', :multipart => true do %>

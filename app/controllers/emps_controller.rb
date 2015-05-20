@@ -4,7 +4,7 @@ class EmpsController < ApplicationController
   # GET /emps
   # GET /emps.json
   def index
-    @emps = Emp.all
+    @emps = Emp.paginate(:page => params[:page], :per_page => 20).order(:code)
   end
 
   def index_members

@@ -1,6 +1,7 @@
 <%- model_class = Emp -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+  <!--t '.title', :default => model_class.model_name.human.pluralize.titleize -->
+  <h1>従業員一覧</h1>
 </div>
 <table class="table table-striped">
   <thead>
@@ -38,7 +39,8 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_emp_path,
             :class => 'btn btn-primary' %>
-
+<br>
+<%= will_paginate @emps, { :previous_label => '&lt 前へ', :next_label => '次へ &gt' ,:renderer => BootstrapPagination::Rails }  %>
 <br>
 <hr>
 <%= form_tag 'emps/upload', :multipart => true do %>

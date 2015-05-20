@@ -1,0 +1,48 @@
+<%= stylesheet_link_tag    'application', media: 'all' %>
+<%= Gon::Base.render_data({}) %>
+
+<%= link_to '前日', '/worklogs/oneday/yesterday.graph', :class => 'btn btn-primary btn-sm' %>
+<%= session[:date] %>
+<%= link_to '翌日', '/worklogs/oneday/tomorrow.graph',  :class => 'btn btn-primary btn-sm' %>
+</br>
+<div id="chart_div" style="border:1px solid gray; width:1200px; height:300px"></div>
+
+<!------------------------------------------------------------------------>
+<!-- AJAX API のロード -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+// Visualization API とタイムライングラフ用のパッケージのロード
+google.load("visualization", "1", {packages:["timeline"]});
+
+// Google Visualization API ロード時のコールバック関数の設定
+google.setOnLoadCallback(drawChart);
+
+// グラフ作成用のコールバック関数
+function drawChart() {
+
+	// データテーブルの作成
+	var dataTable = new google.visualization.DataTable();
+
+    dataTable.addColumn({ type: 'string', id: 'dept' });
+    dataTable.addColumn({ type: 'string', id: 'name' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+    dataTable.addColumn({ type: 'date', id: 'End' });
+    
+    for (var row in gon.graph_data){
+ 	      dataTable.addRow([ gon.graph_data[row][0], gon.graph_data[row][1], new Date(0, 0, 0, gon.graph_data[row][2], gon.graph_data[row][3], gon.graph_data[row][4]),  new Date(0, 0, 0, gon.graph_data[row][5], gon.graph_data[row][6], gon.graph_data[row][7]) ])
+      }
+    
+    //dataTable.addRows(gon.graph_data)
+
+	// グラフのオプションを設定
+	var options = { title: '就業状況', timeline: { groupByRowLabel: false } };
+    
+	// LineChart のオブジェクトの作成
+	var chart = new google.visualization.Timeline(document.getElementById('chart_div'));
+
+	// データテーブルとオプションを渡して、グラフを描画
+	chart.draw(dataTable, options);
+
+}
+</script>

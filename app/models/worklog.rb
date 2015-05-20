@@ -160,7 +160,18 @@ class Worklog < ActiveRecord::Base
   def self.new_on(year, month, day, emp)
     newlog = self.new(:workday => Date.new(year, month, day), :emp_code => emp.code, :dept_code => emp.dept.code)
     newlog.set_defaultAttributes
+    puts "new log is " + newlog.to_s + " ** " + newlog.emp_code
     return newlog
   end
+  
+  def wk_start_end_as_array
+    if self.wk_start == self.wk_end
+      return [ 12, 0, 0, 12, 0, 0 ]
+    else
+      return [ self.wk_start.hour, self.wk_start.min, self.wk_start.sec, self.wk_end.hour, self.wk_end.min, self.wk_end.sec ]
+    end
+  end
+  
+  
   
 end

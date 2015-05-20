@@ -31,7 +31,7 @@
     <% for worklog in @worklogs %>
       <%= fields_for worklog, nil, :index => worklog.id do | f | %>
       <tr>
-        <td><%= f.hidden_field(:emp_id) %><%= worklog.today_mark %></td>
+        <td><%= f.hidden_field(:emp_code) %><%= f.hidden_field(:dept_code) %><%= f.hidden_field(:workday) %><%= worklog.today_mark %></td>
         <td class="<%= worklog.workday_css_class %>" > <%= worklog.workdayYMwday  %></td>
         <td><%= f.collection_select(:holidaytype_id, Holidaytype.all, :id, :name) %></td>
         <td><%= f.collection_select(:worktype_id, Worktype.all, :id, :name) %></td>

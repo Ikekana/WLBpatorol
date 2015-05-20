@@ -13,12 +13,12 @@
 
   <div class="visible-lg">
     <div class="field">
-      <%= f.label :dept_id %><br>
-      <%= f.collection_select(:dept_id, Dept.order(:code), :id, :name, :include_blank => true)  %>
+      <%= f.label :dept_code %><br>
+      <%= f.collection_select(:dept_code, Dept.order(:code), :code, :name, :include_blank => true)  %>
     </div>
     <div class="field">
-      <%= f.label :emp_id %><br>
-      <%= f.collection_select(:emp_id, Emp.order(:code), :id, :name, :include_blank => true)  %>
+      <%= f.label :emp_code %><br>
+      <%= f.collection_select(:emp_code, Emp.order(:code), :code, :name, :include_blank => true)  %>
     </div>
     <div class="field">
       <%= f.label :workday %><br>
