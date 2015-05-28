@@ -12,12 +12,15 @@
   <% end %>
   <br>
 </div>
+<div>
   <p>
     <%= link_to 'ワンクリック登録', '/worklogs/edit_today', :class => 'btn btn-primary btn-lg' %>
   </p>
+</div>
   <br>
   <br>
-<div >
+<% if current_user.emp.isadmin %>
+<div>
   <h3 class="lead">組織の状況</h3>
   <div class="bs-callout bs-callout-danger">
     <p><%= link_to 'メンバー一覧',   '/index_members',        :class=>'btn btn-link' %></p>
@@ -25,7 +28,9 @@
     <p><%= link_to '今月の状況',     depts_path,        :class=>'btn btn-link' %></p>
   </div>
 </div>
+<% end %>
 
+<% if current_user.sysadmin %>
 <div >
   <h3 class="lead">マスター管理</h3>
   <div class="bs-callout bs-callout-danger">
@@ -37,3 +42,4 @@
   <p><%= link_to '祝日登録', holidays_path,     :class=>'btn btn-link' %></p>
   <br>
 </div>
+<% end %>

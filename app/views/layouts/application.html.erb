@@ -53,8 +53,9 @@
         </div>
         <div class="collapse navbar-collapse" id="wlbp-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            
-            <li><%= link_to '今月の状況', '/worklogs/one_member_one_month/' + current_user.emp.code %></li>
+            <% unless current_user.nil? %>
+              <li><%= link_to 'あなたの今月の勤務状況', '/worklogs/one_member_one_month/' + current_user.emp.code %></li>
+            <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">作業年月：<%=session[:year] %>年<%=session[:month] %>月</a></li>

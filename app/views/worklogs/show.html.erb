@@ -63,8 +63,9 @@
     <strong>Check:</strong>
     <%= @worklog.check %>
   </p>
-
-  <%= link_to 'Edit', edit_worklog_path(@worklog) %> |
+  <% if current_user.sysadmin? %>
+    <%= link_to 'Edit', edit_worklog_path(@worklog) %> |
+  <% end %>
   <%= link_to 'Back', worklogs_path %>
 </div>
   

@@ -29,6 +29,7 @@ ja:
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
         company: 会社
+        sysadmin: システム管理者
       engineorder:
         issue_no: 発行No
         inquiry_date: 引合発生日

@@ -13,7 +13,12 @@
     <%= f.text_field :code %>
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+  <div class="field">
+    <%= f.label :sysadmin %><br />
+    <%= f.check_box 'sysadmin', {:checked => current_user.sysadmin }  %>  
+  </div>
+
+<% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 

@@ -8,18 +8,16 @@
       <th><%= model_class.human_attribute_name(:code) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:deptname) %></th>
-      <th><%= model_class.human_attribute_name(:isadmin) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% @emps.each do |emp| %>
       <tr>
-        <td><%= link_to emp.id, emp_path(emp) %></td>
+        <td><%= emp.code %></td>
         <td><%= emp.name %></td>
         <td><%= emp.deptname %></td>
-        <td align="center" ><%= check_box '', '', {:checked => emp.isadmin, :disabled => true} %></td>
-        <td><%=l emp.created_at %></td>
+        <td><%= link_to '今月の状況', '/worklogs/one_member_one_month/' + emp.code %></td>
       </tr>
     <% end %>
   </tbody>

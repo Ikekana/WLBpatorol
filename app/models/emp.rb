@@ -60,6 +60,9 @@ class Emp < ActiveRecord::Base
   end 
 
   def uncoded_name
+    if read_attribute("name").blank?
+      return ''
+    end
     self.encryptor.decrypt_and_verify(read_attribute("name"))          
   end  
   

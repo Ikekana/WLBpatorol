@@ -1,0 +1,5 @@
+小田垣正美	Odagaki_Masami@ogis-ri.co.jp	8310039	ソリ開本部長
+阿佐美勝	Asami_Masaru@ogis-ri.co.jp		0176990	組込ソリ部部長補佐
+青木淳		Jun_Aoki@ogis-ri.co.jp			0590612	組込ソリ部２Tマネージャ
+青木浩二	Kouji_Aoki@ogis-ri.co.jp		0373233	組込ソリ部２T
+池尻佳奈子	Ikejiri_Kanako@ogis-ri.co.jp	9271875	システム管理者
