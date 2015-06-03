@@ -74,4 +74,16 @@ class Emp < ActiveRecord::Base
   def depts_i_can_see
     return self.dept.all_depts_below
   end
+  
+  #def overhrs_in_month(year, month)
+  #  anArray = Array.new()
+  #  last  = Date.new(year, month, -1)
+  #  
+  #  sum = 0
+  #  for i in 1..last.day do
+  #        
+  #  end
+  #  
+  #end
+  
 end

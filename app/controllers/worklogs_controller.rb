@@ -62,7 +62,6 @@ class WorklogsController < ApplicationController
     end
     gon.graph_data = anArray
     
-    puts params.to_s
     
     if params[:option] == 'graph'
       render template: "worklogs/graph_index_oneday", layout: false and return
@@ -76,10 +75,32 @@ class WorklogsController < ApplicationController
     first = Date.new(session[:year].to_i, session[:month].to_i, 1)
     last  = Date.new(session[:year].to_i, session[:month].to_i, -1)  
     @worklogs = Worklog.where(:emp_code => params[:emp_code], :workday => first..last).order(:workday)
+    
     anArray = Array.new()
+    criteria_values1 = Worklog.criterias_for(2015, 6, :red)
+    criteria_values2 = Worklog.criterias_for(2015, 6, :yellow)
+    
+    sum_of_overhrs = 0
     @worklogs.each do | worklog |
-      anArray.append([ worklog.workday, worklog.work_minutes_in_day.to_s].concat(worklog.wk_start_end_as_array))
+      
+      #one_column = Array.new() 
+      #one_column.append(worklog.workday.day.to_s)
+      
+      #sum_of_overhrs = sum_of_overhrs + worklog.overhrs_in_min
+      #one_column.append(sum_of_overhrs)
+      
+      #anArray.append([ worklog.workday, worklog.work_minutes_in_day.to_s].concat(worklog.wk_start_end_as_array))
+      
+      #anArray.append(one_column)[]
+      sum_of_overhrs = sum_of_overhrs + worklog.overhrs_in_min 
+      puts "sum_of_overhrs" 
+      anArray.append([ worklog.workday.day.to_s, criteria_values1[worklog.workday.day], criteria_values2[worklog.workday.day], sum_of_overhrs ])
+      
     end
+    
+    # puts anArray
+    
+    gon.emp_name   = params[:emp_code]
     gon.graph_data = anArray
     
   end

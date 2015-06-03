@@ -7,6 +7,21 @@ class Worklog < ActiveRecord::Base
   belongs_to :holidaytype
   belongs_to :worktype
   validates_associated :dept, :emp
+
+  @@overhrs_criterias = nil
+  
+  def self.create_criterias
+    @@overhrs_criterias = Hash.new()
+    @@overhrs_criterias[:red]    = 49.5 * 60
+    @@overhrs_criterias[:yellow] = 25   * 60
+  end  
+  
+  def self.get_overhrs_criteria(criteria_name)
+    if @@overhrs_criterias.nil?
+      self.create_criterias
+    end
+    return @@overhrs_criterias[criteria_name]
+  end
   
   # 一日10時間（休憩を除く）以上作業していたらtrueを返す。
   def over_work_in_day?
@@ -21,7 +36,50 @@ class Worklog < ActiveRecord::Base
     diff = self.wk_end - self.wk_start
     return (( diff / 60 )  - self.rest)
   end
+
+  # 一日の超過時間（休憩を除く）を分で返す。7.75よりも少ない場合はマイナスになる
+  # 仮実装（午前休、午後休などの場合の考慮はしていない）
+  def overhrs_in_min
+    unless self.wk_start == self.wk_end 
+      return self.work_minutes_in_day - 465
+    end
+    return 0
+  end
   
+  # 年月を指定して、その月の労働日数を返す
+  def self.number_of_workdays(year, month)
+    count = 0
+    last  = Date.new(year, month, -1)
+    for i in 1..last.day do
+      oneday = Date.new(year, month, i)
+      unless Holiday.isOff?(oneday)
+        count = count + 1
+      end
+    end
+    
+    puts "count is " + count.to_s
+    
+    return count
+  end
+  
+  # 一か月の超過時間の基準を日単位にHashにして返す
+  def self.criterias_for(year, month, criteria_name)
+        
+    criteria_per_day = self.get_overhrs_criteria(criteria_name) / self.number_of_workdays(year, month)
+    sum = 0
+    aHash = Hash.new()
+    last  = Date.new(year, month, -1)
+
+    for i in 1..last.day
+      oneday = Date.new(year, month, i)
+      unless Holiday.isOff?(oneday)
+        sum = sum + criteria_per_day
+      end
+      aHash.store(i, sum)
+    end
+    return aHash
+  end
+
   # マスタから名前を逆引きして、そのマスタデータのidを返す。
   # 見つからなかったらidとして1をセットする。
   def self.get_id_from_class(aClass, attr, value)
@@ -104,14 +162,8 @@ class Worklog < ActiveRecord::Base
   
   # 作業日が休日（土日or祝日）か否かを返す（労働日の場合はFalse）
   # 現状、土日は無条件に休日と見なし、その上でHolidaysマスタにエントリがあれば休日とみなしている
-  def isOff? 
-    if self.workday.wday == 0 || self.workday.wday == 6
-      return true
-    end
-    if Holiday.isHoliday?(self.workday)
-      return true
-    end
-    return false
+  def isOff?
+    return Holiday.isOff?(self.workday)
   end
   
   # 休日であれば、そのことを示すＣＳＳのクラス名を返す

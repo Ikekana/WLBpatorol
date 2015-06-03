@@ -9,4 +9,12 @@ class Holiday < ActiveRecord::Base
   def self.isHoliday?(aDay)
     return where(:Holidaydate => aDay).size > 0
   end
+ 
+  def self.isOff?(aDay)  
+    if aDay.wday == 0 || aDay.wday == 6
+      return true
+    end
+    return self.isHoliday?(aDay)
+  end
+  
 end
