@@ -15,4 +15,19 @@ class User < ActiveRecord::Base
   def dept_range
     return self.emp.dept.code_range
   end
+  
+  def isadmin
+    if self.emp.nil?
+      return false
+    end
+    return self.emp.isadmin
+  end
+
+  def emp_code
+    if self.emp.nil?
+      return ""
+    end
+    return self.emp.code
+  end
+
 end

@@ -54,7 +54,7 @@
         <div class="collapse navbar-collapse" id="wlbp-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <% unless current_user.nil? %>
-              <li><%= link_to 'あなたの今月の勤務状況', '/worklogs/one_member_one_month/' + current_user.emp.code %></li>
+              <li><%= link_to 'あなたの今月の勤務状況', '/worklogs/one_member_one_month/' + current_user.emp_code %></li>
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right">

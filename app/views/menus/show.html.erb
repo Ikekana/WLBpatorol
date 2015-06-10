@@ -19,7 +19,7 @@
 </div>
   <br>
   <br>
-<!-- if current_user.emp.isadmin -->
+<%= if current_user.isadmin %>
 <div>
   <h3 class="lead">組織の状況</h3>
   <div class="bs-callout bs-callout-danger">
@@ -28,7 +28,7 @@
     <p><%= link_to '今月の状況',     'worklogs/all_member_one_month',     :class=>'btn btn-link' %></p>
   </div>
 </div>
-<!-- end -->
+<% end %>
 
 <% if current_user.sysadmin %>
 <div >
