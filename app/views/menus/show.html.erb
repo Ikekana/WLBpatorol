@@ -23,9 +23,9 @@
 <div>
   <h3 class="lead">組織の状況</h3>
   <div class="bs-callout bs-callout-danger">
-    <p><%= link_to 'メンバー一覧',   '/index_members',        :class=>'btn btn-link' %></p>
+    <p><%= link_to 'メンバー一覧',   '/index_members',                    :class=>'btn btn-link' %></p>
     <p><%= link_to '昨日の状況',     '/worklogs/oneday/yesterday',        :class=>'btn btn-link' %></p>
-    <p><%= link_to '今月の状況',     depts_path,        :class=>'btn btn-link' %></p>
+    <p><%= link_to '今月の状況',     'worklogs/all_member_one_month',     :class=>'btn btn-link' %></p>
   </div>
 </div>
 <% end %>

@@ -1,10 +1,10 @@
 <h1>就業実績一覧</h1>
 
 <% unless @worklogs.empty? %>
-  <p class="visible-lg"><%= @worklogs[0].dept.name %></p>
-  <p class="visible-lg"><%= @worklogs[0].emp.name %></p>
+  <p class="visible-lg"><%= @worklogs[0].dept.name %>   <%= @worklogs[0].emp.name %></p>
 <% end %>
-<br>
+<div id="chart_div" class="container-fluid" style="border:1px solid gray"></div>
+<br />
 <table>
   <thead>
     <tr>
@@ -38,11 +38,6 @@
     <% end %>
   </tbody>
 </table>
-
-<hr />
-<div id="chart_div" class="container-fluid" style="border:1px solid gray"></div>
-<br />
-
 <!------------------------------------------------------------------------>
 <!-- AJAX API のロード -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -60,15 +55,15 @@ function drawChart() {
 	// データテーブルの作成
 	var dataTable = new google.visualization.DataTable();
 
-  dataTable.addColumn('string', 'day');
-  dataTable.addColumn('number', '警戒');
-  dataTable.addColumn('number', '注意');
-  dataTable.addColumn('number', '超過時間');
+  dataTable.addColumn('number', '日');
+  dataTable.addColumn('number', '<警戒>');
+  dataTable.addColumn('number', '<注意>');
+  dataTable.addColumn('number', gon.emp_name);
 
   dataTable.addRows(gon.graph_data)
 
 	// グラフのオプションを設定
-	var options = { title: '超過時間の状況', colors: ['red', 'yellow', 'blue', 'green', 'yellow', 'gray'] };
+	var options = { title: '超過時間の状況', hAxis: { gridlines: {count: 30}}, colors: ['red', 'yellow', 'blue', 'green', 'yellow', 'gray'] };
     
 	// LineChart のオブジェクトの作成
 	var chart = new google.visualization.LineChart(document.getElementById('chart_div'));

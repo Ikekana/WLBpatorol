@@ -17,7 +17,9 @@ Rails.application.routes.draw do
   get       'worklogs/oneday/:date(.:option)' => 'worklogs#index_oneday'
 
   get       'worklogs/one_member_one_month/:emp_code' => 'worklogs#index_one_member_one_month'
-  
+
+  get       'worklogs/all_member_one_month' => 'worklogs#index_all_member_one_month'
+
   resources :holidays
 
   resources :worktypes

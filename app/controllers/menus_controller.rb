@@ -1,8 +1,10 @@
 class MenusController < ApplicationController
   def show
+    if session[:year].nil?
+      session[:year] = Date.today.year
+      session[:month] = Date.today.month
+    end
     session[:date] = nil
-    session[:year] = Date.today.year
-    session[:month] = Date.today.month
   end
   
   # ログイン時に以降の操作のデフォルトとなる年月を設定する

@@ -75,6 +75,29 @@ class Emp < ActiveRecord::Base
     return self.dept.all_depts_below
   end
   
+  def worklogs_in_month(year, month)
+    first = Date.new(year, month, 1)
+    last  = Date.new(year, month, -1)  
+    worklogs = Worklog.where(:emp_code => self.code, :workday => first..last).order(:workday)   
+    return worklogs
+  end
+  
+  def overhrs_in_month(year, month)
+    worklogs = self.worklogs_in_month(year, month)
+    aHash    = Hash.new()
+    today    = Date.today
+    
+    sum_of_overhrs = 0
+    worklogs.each do | worklog |
+      if worklog.workday > today
+        aHash.store(worklog.workday.day, nil )
+      else
+        sum_of_overhrs = sum_of_overhrs + worklog.overhrs_in_min 
+        aHash.store(worklog.workday.day, sum_of_overhrs )
+      end
+    end
+    return aHash
+  end
   #def overhrs_in_month(year, month)
   #  anArray = Array.new()
   #  last  = Date.new(year, month, -1)
