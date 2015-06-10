@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     return self.emp.dept.code_range
   end
   
-  def isadmin
+  def isadmin?
     if self.emp.nil?
       return false
     end
