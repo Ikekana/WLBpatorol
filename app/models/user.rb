@@ -30,4 +30,11 @@ class User < ActiveRecord::Base
     return self.emp.code
   end
 
+  def emp_name
+    if self.emp.nil?
+      return ""
+    end
+    return self.emp.name
+  end
+
 end
