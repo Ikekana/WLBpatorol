@@ -7,7 +7,7 @@ class Holiday < ActiveRecord::Base
   end
   
   def self.isHoliday?(aDay)
-    return where(:Holidaydate => aDay).size > 0
+    return where(:holidaydate => aDay).size > 0
   end
  
   def self.isOff?(aDay)  
