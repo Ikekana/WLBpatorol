@@ -68,3 +68,6 @@ gem 'therubyracer'
 gem 'less-rails'
 
 gem 'jquery-turbolinks' 
+
+# 検索機能
+gem 'ransack'

@@ -3,6 +3,17 @@
   <!--t '.title', :default => model_class.model_name.human.pluralize.titleize -->
   <h1>従業員一覧</h1>
 </div>
+<!-- 検索条件 >
+<div>
+<%= search_form_for @q do |s| %>
+  <%= s.label :name_cont, "氏名" %>
+  <%= s.search_field :name_cont %>
+  <br />
+  <%# 検索ボタン %>
+  <%= s.submit %>
+<% end %>
+</div>
+<-->
 <table class="table table-striped">
   <thead>
     <tr>

@@ -1,10 +1,14 @@
 class EmpsController < ApplicationController
   before_action :set_emp, only: [:show, :edit, :update, :destroy]
+  before_filter :set_search
 
   # GET /emps
   # GET /emps.json
   def index
-    @emps = Emp.paginate(:page => params[:page], :per_page => 20).order(:code)
+    # @emps = Emp.paginate(:page => params[:page], :per_page => 20).order(:code)
+    @q = Emp.search(params[:q])
+    @q.sorts = 'name asc' if @q.sorts.empty?
+    @emps = @q.result.paginate(:page => params[:page], :per_page => 20)
   end
 
   def index_members
@@ -94,4 +98,9 @@ class EmpsController < ApplicationController
     def emp_params
       params.require(:emp).permit(:code, :name, :dept_code, :isadmin, :uncoded_name)
     end
+
+    def set_search
+      @search=Emp.search(params[:q])
+    end
+
 end
