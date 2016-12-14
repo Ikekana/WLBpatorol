@@ -1,35 +1,69 @@
-<h1>従業員マスタ</h1>
-
-<table>
+<%- model_class = Emp -%>
+<div class="page-header">
+  <!--t '.title', :default => model_class.model_name.human.pluralize.titleize -->
+  <h1>従業員一覧</h1>
+</div>
+<!-- 検索条件 >
+<div>
+<%= search_form_for @q do |s| %>
+  <%= s.label :name_cont, "氏名" %>
+  <%= s.search_field :name_cont %>
+  <br />
+  <%# 検索ボタン %>
+  <%= s.submit %>
+<% end %>
+</div>
+<-->
+<table class="table table-striped">
   <thead>
     <tr>
-      <th width="100" >社員コード</th>
-      <th width="160" >社員氏名</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:code) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:deptname) %></th>
+      <th><%= model_class.human_attribute_name(:isadmin) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @emps.each do |emp| %>
       <tr>
-        <td><%= emp.code %></td>
+        <td><%= link_to emp.id, emp_path(emp) %></td>
         <td><%= emp.name %></td>
-        <td><%= link_to 'Show', emp %></td>
-        <td><%= link_to 'Edit', edit_emp_path(emp) %></td>
-        <td><%= link_to 'Destroy', emp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= emp.deptname %></td>
+        <td align="center" ><%= check_box '', '', {:checked => emp.isadmin, :disabled => true} %></td>
+        <td><%=l emp.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_emp_path(emp), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      emp_path(emp),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_emp_path,
+            :class => 'btn btn-primary' %>
 <br>
-<%= link_to '新規登録', new_emp_path %>
+<%= will_paginate @emps, { :previous_label => '&lt 前へ', :next_label => '次へ &gt' ,:renderer => BootstrapPagination::Rails }  %>
 <br>
 <hr>
 <%= form_tag 'emps/upload', :multipart => true do %>
   従業員一括登録:（*.csv）
   <%= file_field_tag 'upload_file', :accept => 'text/comma-separated-values' %>
-  <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？" %>
+  <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？", :class => 'btn btn-warning btn-xs' %>
 <% end %>
+<br>
+*アップロード・フォーマット（CSV） ヘッダ行含まず<br>
+　1. 氏名コード（英数）<br>
+　2. 氏名<br>
+　3. 所属部署コード（英数）主務のみ<br>
+　4. 役職コード<br>
 
 

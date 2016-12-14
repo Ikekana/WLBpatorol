@@ -18,7 +18,7 @@ class HolidaysControllerTest < ActionController::TestCase
 
   test "should create holiday" do
     assert_difference('Holiday.count') do
-      post :create, holiday: { name: @holiday.name }
+      post :create, holiday: { holidaydate: @holiday.holidaydate, year: @holiday.year }
     end
 
     assert_redirected_to holiday_path(assigns(:holiday))
@@ -35,7 +35,7 @@ class HolidaysControllerTest < ActionController::TestCase
   end
 
   test "should update holiday" do
-    patch :update, id: @holiday, holiday: { name: @holiday.name }
+    patch :update, id: @holiday, holiday: { holidaydate: @holiday.holidaydate, year: @holiday.year }
     assert_redirected_to holiday_path(assigns(:holiday))
   end
 

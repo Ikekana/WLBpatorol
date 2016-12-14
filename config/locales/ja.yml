@@ -196,3 +196,19 @@ ja:
   view:
     responsed_detetime: 回答日時
     contents: 回答内容
+  flash:
+    worklog:
+      actions:
+        create:
+          success: '就業実績の登録を完了しました。'
+          failure:  "就業実績を修正してください。"
+        update:
+          success:  "就業実績の更新を完了しました。"
+          failure:  "入力を修正してください。"
+        destroy:
+          success:  "就業実績の削除を完了しました。"
+          failure:  "就業実績を削除できません。"
+        suspend:
+          success:  "就業実績を無効にしました。"
+        activate:
+          success:  "就業実績を有効にしました。"

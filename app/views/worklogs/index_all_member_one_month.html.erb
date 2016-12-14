@@ -1,0 +1,38 @@
+<h3>メンバの状況</h3>
+<div id="chart_div" style="height:400px;" class="container-fluid" style="border:1px solid gray"></div>
+<%= will_paginate @emps, { :previous_label => '&lt 前へ', :next_label => '次へ &gt' ,:renderer => BootstrapPagination::Rails }  %>
+
+<!------------------------------------------------------------------------>
+<!-- AJAX API のロード -->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+// Visualization API とライングラフ用のパッケージのロード
+google.load("visualization", "1", {packages:["corechart"]});
+
+// Google Visualization API ロード時のコールバック関数の設定
+google.setOnLoadCallback(drawChart);
+
+// グラフ作成用のコールバック関数
+function drawChart() {
+
+	// データテーブルの作成
+	var dataTable = new google.visualization.DataTable();
+
+  dataTable.addColumn('number', 'day');  
+  for (var i = 0; i < gon.col.length; i++ ) {
+    dataTable.addColumn('number', gon.col[i] );  
+  }
+  dataTable.addRows(gon.data)
+
+	// グラフのオプションを設定
+	var options = { hAxis: { gridlines: {count: 30}}, colors: ['red', 'yellow', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue', 'blue'] };
+    
+	// LineChart のオブジェクトの作成
+	var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+	// データテーブルとオプションを渡して、グラフを描画
+	chart.draw(dataTable, options);
+
+}
+</script>

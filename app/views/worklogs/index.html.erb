@@ -1,5 +1,20 @@
-<h1>就業実績一覧</h1>
-
+<h1>就業実績一覧(テスト用の画面)</h1>
+<br>
+<%= search_form_for @search do |f| %>
+  <%= f.label :reason_cont, '乖離理由' %>
+  <%= f.text_field :reason_cont %>
+  <br />
+  <%= f.label :created_at, '作成日' %>
+  <% first_day = Date.new(session[:year].to_i, session[:month].to_i , 1) %>
+  <% last_day = Date.new(session[:year].to_i, session[:month].to_i , -1) %>
+　<%= f.date_select :workday_gteq, :default => first_day %>〜
+  <%= f.date_select :workday_lteq, :default => last_day %>
+  <div>
+    <%= f.submit '検索する' %>
+  </div>
+<% end %>
+<br>
+<br>
 <table>
   <thead>
     <tr>
@@ -27,7 +42,7 @@
         <td><%= worklog.dept.name %></td>
         <td><%= worklog.emp.name %></td>
         <td><%= worklog.workday.strftime("%m/%d")  %></td>
-        <td><%= worklog.holiday.name %></td>
+        <td><%= worklog.holidaytype.name %></td>
         <td><%= worklog.worktype.name %></td>
         <td><%= worklog.rc_start.strftime("%H:%M") %></td>
         <td><%= worklog.wk_start.strftime("%H:%M")  %></td>
@@ -53,3 +68,27 @@
 <br>
 
 <%= link_to 'データ手入力', new_worklog_path %>
+<br>
+<hr>
+<%= form_tag 'worklogs/upload', :multipart => true do %>
+  CSVから一括登録:（*.csv）
+  <%= file_field_tag 'upload_file', :accept => 'text/comma-separated-values' %>
+  <%= submit_tag "アップロード", :confirm => "アップロードしていいですか？" %>
+<% end %>
+
+<br>
+*アップロード・フォーマット（CSV） ヘッダ行含まず<br>
+  1. 組織コード（英数）<br>
+  2. 社員コード（英数）<br>
+  3. 日付（yyyy/mm/dd）<br>
+  4. 休暇区分（名称）<br>
+  5. 勤務区分（名称）<br>
+  6. 出勤(hh:mm)<br>
+  7. 始業(hh:mm)<br>
+  8. 終業(hh:mm)<br>
+  9. 退勤(hh:mm)<br>
+ 10. 休憩(整数)<br>
+ 11. 乖離理由<br>
+ 12. 備考<br>
+ 13. チェック<br>
+

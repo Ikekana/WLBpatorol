@@ -1,0 +1,24 @@
+<%- model_class = Emp -%>
+<div class="page-header">
+  <h1>あなたの組織のメンバー一覧</h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:code) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:deptname) %></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @emps.each do |emp| %>
+      <tr>
+        <td><%= emp.code %></td>
+        <td><%= emp.name %></td>
+        <td><%= emp.deptname %></td>
+        <td><%= link_to '今月の状況', '/worklogs/one_member_one_month/' + emp.code %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

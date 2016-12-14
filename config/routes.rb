@@ -1,11 +1,32 @@
 Rails.application.routes.draw do
-  resources :worktypes
+  
+  root to:  'menus#show'
+  
+  get       'menus/show' => 'menus#show'
+
+  post      'menus/menu_selected' => 'menus#menu_selected'
+
+  get       'worklogs/index_edit' => 'worklogs#index_edit'
+
+  post      'worklogs/index_update' => 'worklogs#index_update'
+  
+  get       'worklogs/edit_today' => 'worklogs#edit_today'
+
+  get       'index_members' => 'emps#index_members'
+  
+  get       'worklogs/oneday/:date(.:option)' => 'worklogs#index_oneday'
+
+  get       'worklogs/one_member_one_month/:emp_code' => 'worklogs#index_one_member_one_month'
+
+  get       'worklogs/all_member_one_month' => 'worklogs#index_all_member_one_month'
 
   resources :holidays
 
+  resources :worktypes
+
+  resources :holidaytypes
+
   devise_for :users
-  
-  root to: "worklogs#index"
   
   resources :worklogs
 
@@ -16,6 +37,8 @@ Rails.application.routes.draw do
   post 'depts/upload' => 'depts#upload'
 
   post 'emps/upload' => 'emps#upload'
+
+  post 'worklogs/upload' => 'worklogs#upload'
 
   
   # The priority is based upon order of creation: first created -> highest priority.

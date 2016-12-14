@@ -1,1 +1,1 @@
-json.extract! @holiday, :id, :name, :created_at, :updated_at
+json.extract! @holiday, :id, :holidaydate, :year, :comment, :created_at, :updated_at

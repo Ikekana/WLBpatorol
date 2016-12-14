@@ -11,59 +11,70 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :dept_id %><br>
-    <%= f.collection_select(:dept_id, Dept.order(:code), :id, :name, :include_blank => true)  %>
+  <div class="visible-lg">
+    <div class="field">
+      <%= f.label :dept_code %><br>
+      <%= f.collection_select(:dept_code, Dept.order(:code), :code, :name, :include_blank => true)  %>
+    </div>
+    <div class="field">
+      <%= f.label :emp_code %><br>
+      <%= f.collection_select(:emp_code, Emp.order(:code), :code, :name, :include_blank => true)  %>
+    </div>
+    <div class="field">
+      <%= f.label :workday %><br>
+      <%= f.date_select :workday %>
+    </div>
+    <div class="field">
+      <%= f.label :holidaytype_id %><br>
+      <%= f.collection_select(:holidaytype_id, Holidaytype.order(:id), :id, :name, :include_blank => false, :selected => 6)  %>
+    </div>
+    <div class="field">
+      <%= f.label :worktype %><br>
+      <%= f.collection_select(:worktype_id, Worktype.order(:id), :id, :name, :include_blank => false, :selected => 1)  %>
+    </div>
+    <div class="field">
+      <%= f.label :rc_start %><br>
+      <%= f.time_select :rc_start %>
+    </div>
+    <div class="field">
+      <%= f.label :wk_start %><br>
+      <%= f.time_select :wk_start %>
+    </div>
+    <div class="field">
+      <%= f.label :wk_end %><br>
+      <%= f.time_select :wk_end %>
+    </div>
+    <div class="field">
+      <%= f.label :rc_end %><br>
+      <%= f.time_select :rc_end %>
+    </div>
+    <div class="field">
+      <%= f.label :rest %><br>
+      <%= f.number_field :rest %>
+    </div>
+    <div class="field">
+      <%= f.label :reason %><br>
+      <%= f.text_field :reason %>
+    </div>
+    <div class="field">
+      <%= f.label :comment %><br>
+      <%= f.text_field :comment %>
+    </div>
+    <div class="field">
+      <%= f.label :check %><br>
+      <%= f.text_field :check %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :emp_id %><br>
-    <%= f.collection_select(:emp_id, Emp.order(:code), :id, :name, :include_blank => true)  %>
+  <div class="hidden-lg">
+    <div class="actions">
+      <%= f.submit '業務開始', {:name => 'wk_start', :class => 'btn btn-primary btn-block btn-lg'}  %>
+    </div>
+    <div class="actions">
+      <%= f.submit '業務終了', {:name => 'wk_end', :class => 'btn btn-warning btn-block btn-lg'}  %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :workday %><br>
-    <%= f.date_select :workday %>
-  </div>
-  <div class="field">
-    <%= f.label :holiday_id %><br>
-    <%= f.collection_select(:holiday_id, Holiday.order(:id), :id, :name, :include_blank => false, :selected => 6)  %>
-  </div>
-  <div class="field">
-    <%= f.label :worktype %><br>
-    <%= f.collection_select(:worktype_id, Worktype.order(:id), :id, :name, :include_blank => false, :selected => 1)  %>
-  </div>
-  <div class="field">
-    <%= f.label :rc_start %><br>
-    <%= f.time_select :rc_start %>
-  </div>
-  <div class="field">
-    <%= f.label :wk_start %><br>
-    <%= f.time_select :wk_start %>
-  </div>
-  <div class="field">
-    <%= f.label :wk_end %><br>
-    <%= f.time_select :wk_end %>
-  </div>
-  <div class="field">
-    <%= f.label :rc_end %><br>
-    <%= f.time_select :rc_end %>
-  </div>
-  <div class="field">
-    <%= f.label :rest %><br>
-    <%= f.number_field :rest %>
-  </div>
-  <div class="field">
-    <%= f.label :reason %><br>
-    <%= f.text_field :reason %>
-  </div>
-  <div class="field">
-    <%= f.label :comment %><br>
-    <%= f.text_field :comment %>
-  </div>
-  <div class="field">
-    <%= f.label :check %><br>
-    <%= f.text_field :check %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
 <% end %>

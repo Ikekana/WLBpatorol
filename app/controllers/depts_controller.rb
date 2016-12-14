@@ -4,7 +4,7 @@ class DeptsController < ApplicationController
   # GET /depts
   # GET /depts.json
   def index
-    @depts = Dept.all
+    @depts = Dept.paginate(:page => params[:page], :per_page => 20).order(:code)
   end
 
   # GET /depts/1

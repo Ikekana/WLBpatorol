@@ -1,8 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @holiday.name %>
+  <strong>Holidaydate:</strong>
+  <%= @holiday.holidaydate %>
+</p>
+
+<p>
+  <strong>comment:</strong>
+  <%= @holiday.comment %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @holiday.year %>
 </p>
 
 <%= link_to 'Edit', edit_holiday_path(@holiday) %> |

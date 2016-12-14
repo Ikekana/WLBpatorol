@@ -1,44 +1,23 @@
 ja:
   activerecord:
+    models:
+      emp: 従業員
+      dept: 組織
     attributes:
-      company:
-        name: 会社名
-        category: 分類
-        postcode: 郵便番号
-        address: 住所
-        phone_no: 電話番号
-        destination_name: 宛先
-      engine:
-        engine_model_name: 'エンジン型式'
-        sales_model_name: '販売型式'
-        serialno: 'エンジンNo.'
-        company: '管轄'
-        suspended: サスペンド
-        status: 'ステータス'
-      repair:
-        issue_no: 発行No
-        issue_date: 発行日
-        time_of_running: 運転時間
-        day_of_test: 試運転日
-        years_of_use: 使用年数
-        returning_comment: 返却コメント
-        arrive_comment: 到着コメント
-        order_no: 依頼No
-        order_date: 整備依頼日
-        construction_no: 工事No(仮)
-        desirable_finish_date: 希望完成日
-        arrive_date: 受領日
-        start_date: 整備開始日
-        before_comment: コメント(整備前)
-        finish_date: 整備完了日
-        after_comment: コメント(完了)
-        estimated_finish_date: 予定完成日
-        finish_date: 完了日
-        shipped_date: 出荷日
-        returning_date: 返却日
-        change_comment: コメント(交換理由)
-        requestpaper: 整備依頼書
-        checkpaper: 組立チェックシート
+      emp:
+        id: "ID"
+        name: 氏名
+        code: 社員コード
+        deptname: 所属部署
+        isadmin: 管理者
+        created_at: "登録日時"
+        updated_at: "更新日時"
+      dept:
+        id: "ID"
+        name: 部署名
+        code: 組織コード
+        created_at: "登録日時"
+        updated_at: "更新日時"
       user:
         userid: ログインＩＤ
         code: 社員コード
@@ -50,6 +29,7 @@ ja:
         password_confirmation: パスワード（確認）
         current_password: 現在のパスワード
         company: 会社
+        sysadmin: システム管理者
       engineorder:
         issue_no: 発行No
         inquiry_date: 引合発生日

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212051539) do
+ActiveRecord::Schema.define(version: 20150520090555) do
+
+  create_table "assignments", force: true do |t|
+    t.integer  "dept_id"
+    t.integer  "emp_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "assignments", ["dept_id"], name: "index_assignments_on_dept_id"
+  add_index "assignments", ["emp_id"], name: "index_assignments_on_emp_id"
 
   create_table "depts", force: true do |t|
     t.string   "code"
@@ -25,9 +35,19 @@ ActiveRecord::Schema.define(version: 20150212051539) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "isadmin"
+    t.string   "dept_code"
   end
 
   create_table "holidays", force: true do |t|
+    t.date     "holidaydate"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "comment"
+  end
+
+  create_table "holidaytypes", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -46,6 +66,8 @@ ActiveRecord::Schema.define(version: 20150212051539) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "code"
+    t.boolean  "sysadmin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
@@ -67,8 +89,10 @@ ActiveRecord::Schema.define(version: 20150212051539) do
     t.string   "check"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "holiday_id"
+    t.integer  "holidaytype_id"
     t.integer  "worktype_id"
+    t.string   "dept_code"
+    t.string   "emp_code"
   end
 
   add_index "worklogs", ["dept_id"], name: "index_worklogs_on_dept_id"
